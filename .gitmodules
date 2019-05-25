@@ -1,0 +1,3 @@
+[submodule "Oak/vendor/spdlog"]
+	path = Oak/vendor/spdlog
+	url = https://github.com/gabime/spdlog

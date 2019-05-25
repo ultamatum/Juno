@@ -27,9 +27,15 @@
     <ClInclude Include="src\Oak\EntryPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Oak\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Oak\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Oak\Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
