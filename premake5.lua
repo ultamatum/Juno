@@ -9,7 +9,7 @@ workspace "Oak"
 	}
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-${cfg.architecture}"
-	
+
 project "Oak"
 	location "Oak"
 	kind "SharedLib"
@@ -26,6 +26,7 @@ project "Oak"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include"
 	}
 
@@ -48,11 +49,11 @@ project "Oak"
 	filter "configurations.Debug"
 		defines "OK_DEBUG"
 		symbols "On"
-		
+
 	filter "configurations.Release"
 		defines "OK_RELEASE"
 		optimize "On"
-		
+
 	filter "configurations.Dist"
 		defines "OK_DIST"
 		optimize "On"
@@ -95,11 +96,11 @@ project "Sandbox"
 	filter "configurations.Debug"
 		defines "OK_DEBUG"
 		symbols "On"
-		
+
 	filter "configurations.Release"
 		defines "OK_RELEASE"
 		optimize "On"
-		
+
 	filter "configurations.Dist"
 		defines "OK_DIST"
 		optimize "On"

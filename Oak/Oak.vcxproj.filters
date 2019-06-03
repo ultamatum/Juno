@@ -4,6 +4,9 @@
     <Filter Include="Oak">
       <UniqueIdentifier>{E00F880B-4C19-887C-D594-9E7C419D937C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Oak\Events">
+      <UniqueIdentifier>{C41F1123-B0D7-5270-19DF-2BCC05B6ED60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Oak.h" />
@@ -15,6 +18,18 @@
     </ClInclude>
     <ClInclude Include="src\Oak\EntryPoint.h">
       <Filter>Oak</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Oak\Events\ApplicationEvent.h">
+      <Filter>Oak\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Oak\Events\Event.h">
+      <Filter>Oak\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Oak\Events\KeyEvent.h">
+      <Filter>Oak\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Oak\Events\MouseEvent.h">
+      <Filter>Oak\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Oak\Log.h">
       <Filter>Oak</Filter>
