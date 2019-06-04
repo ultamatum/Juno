@@ -7,6 +7,12 @@
     <Filter Include="Oak\Events">
       <UniqueIdentifier>{C41F1123-B0D7-5270-19DF-2BCC05B6ED60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Oak.h" />
@@ -34,6 +40,12 @@
     <ClInclude Include="src\Oak\Log.h">
       <Filter>Oak</Filter>
     </ClInclude>
+    <ClInclude Include="src\Oak\Window.h">
+      <Filter>Oak</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\okpch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="src\Oak\Log.cpp">
       <Filter>Oak</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\okpch.cpp" />
   </ItemGroup>

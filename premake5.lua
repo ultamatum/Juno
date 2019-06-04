@@ -1,5 +1,6 @@
 workspace "Oak"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -8,18 +9,24 @@ workspace "Oak"
 		"Dist"
 	}
 
-outputDir = "%{cfg.buildcfg}-%{cfg.system}-${cfg.architecture}"
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+-- Include directories relative to root
+IncludeDir = {}
+IncludeDir["GLFW"] = "Oak/vendor/GLFW/include"
+
+include "Oak/vendor/GLFW"
 
 project "Oak"
 	location "Oak"
 	kind "SharedLib"
 	language "C++"
 
-	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "okpch.h"
-	pchsource "Oak/sec/okpch.cpp"
+	pchsource "Oak/src/okpch.cpp"
 
 	files
 	{
@@ -30,7 +37,14 @@ project "Oak"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -46,7 +60,7 @@ project "Oak"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/Sandbox")
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 		}
 
 	filter "configurations.Debug"
@@ -66,8 +80,8 @@ project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 
-	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{

@@ -55,22 +55,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-${cfg.architecture}\Oak\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-${cfg.architecture}\Oak\</IntDir>
+    <OutDir>..\bin\Debug-windows-x86_64\Oak\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\Oak\</IntDir>
     <TargetName>Oak</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Release-windows-${cfg.architecture}\Oak\</OutDir>
-    <IntDir>..\bin-int\Release-windows-${cfg.architecture}\Oak\</IntDir>
+    <OutDir>..\bin\Release-windows-x86_64\Oak\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\Oak\</IntDir>
     <TargetName>Oak</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-${cfg.architecture}\Oak\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-${cfg.architecture}\Oak\</IntDir>
+    <OutDir>..\bin\Dist-windows-x86_64\Oak\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86_64\Oak\</IntDir>
     <TargetName>Oak</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
@@ -80,17 +80,18 @@
       <PrecompiledHeaderFile>okpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OK_PLATFORM_WINDOWS;OK_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>..\bin\Debug-windows-${cfg.architecture}\Oak\Oak.lib</ImportLibrary>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\Oak\Oak.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-${cfg.architecture}\Oak\Oak.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-${cfg.architecture}\Oak\Oak.dll ..\bin\Debug-windows-${cfg.architecture}\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-${cfg.architecture}\Oak\Oak.dll ..\bin\Debug-windows-${cfg.architecture}\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Oak\Oak.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Oak\Oak.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Oak\Oak.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -99,17 +100,18 @@
       <PrecompiledHeaderFile>okpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OK_PLATFORM_WINDOWS;OK_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>..\bin\Release-windows-${cfg.architecture}\Oak\Oak.lib</ImportLibrary>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Release-windows-x86_64\Oak\Oak.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-${cfg.architecture}\Oak\Oak.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-${cfg.architecture}\Oak\Oak.dll ..\bin\Release-windows-${cfg.architecture}\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-${cfg.architecture}\Oak\Oak.dll ..\bin\Release-windows-${cfg.architecture}\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Oak\Oak.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Oak\Oak.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Oak\Oak.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -118,17 +120,18 @@
       <PrecompiledHeaderFile>okpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>OK_PLATFORM_WINDOWS;OK_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>..\bin\Dist-windows-${cfg.architecture}\Oak\Oak.lib</ImportLibrary>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>..\bin\Dist-windows-x86_64\Oak\Oak.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-${cfg.architecture}\Oak\Oak.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-${cfg.architecture}\Oak\Oak.dll ..\bin\Dist-windows-${cfg.architecture}\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-${cfg.architecture}\Oak\Oak.dll ..\bin\Dist-windows-${cfg.architecture}\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Oak\Oak.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Oak\Oak.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Oak\Oak.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -141,14 +144,22 @@
     <ClInclude Include="src\Oak\Events\KeyEvent.h" />
     <ClInclude Include="src\Oak\Events\MouseEvent.h" />
     <ClInclude Include="src\Oak\Log.h" />
+    <ClInclude Include="src\Oak\Window.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\okpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Oak\Application.cpp" />
     <ClCompile Include="src\Oak\Log.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\okpch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
+      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
