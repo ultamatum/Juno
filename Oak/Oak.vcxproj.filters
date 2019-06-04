@@ -34,6 +34,7 @@
     <ClInclude Include="src\Oak\Log.h">
       <Filter>Oak</Filter>
     </ClInclude>
+    <ClInclude Include="src\okpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Oak\Application.cpp">
@@ -42,5 +43,6 @@
     <ClCompile Include="src\Oak\Log.cpp">
       <Filter>Oak</Filter>
     </ClCompile>
+    <ClCompile Include="src\okpch.cpp" />
   </ItemGroup>
 </Project>

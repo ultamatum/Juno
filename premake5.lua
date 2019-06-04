@@ -18,6 +18,9 @@ project "Oak"
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 
+	pchheader "okpch.h"
+	pchsource "Oak/sec/okpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

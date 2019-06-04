@@ -2,9 +2,6 @@
 
 #include "Oak/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace Oak
 {
 	// Events in Oak are currently blocking, meaning when an event occurs it

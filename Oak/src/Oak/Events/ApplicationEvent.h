@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Oak
 {
 	class OAK_API WindowResizeEvent : public Event
