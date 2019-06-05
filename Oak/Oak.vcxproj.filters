@@ -37,6 +37,12 @@
     <ClInclude Include="src\Oak\Events\MouseEvent.h">
       <Filter>Oak\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Oak\Layer.h">
+      <Filter>Oak</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Oak\LayerStack.h">
+      <Filter>Oak</Filter>
+    </ClInclude>
     <ClInclude Include="src\Oak\Log.h">
       <Filter>Oak</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Oak\Application.cpp">
+      <Filter>Oak</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Oak\Layer.cpp">
+      <Filter>Oak</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Oak\LayerStack.cpp">
       <Filter>Oak</Filter>
     </ClCompile>
     <ClCompile Include="src\Oak\Log.cpp">

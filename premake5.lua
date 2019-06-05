@@ -14,8 +14,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root
 IncludeDir = {}
 IncludeDir["GLFW"] = "Oak/vendor/GLFW/include"
+IncludeDir["Glad"] = "Oak/vendor/Glad/include"
 
 include "Oak/vendor/GLFW"
+include "Oak/vendor/Glad"
 
 project "Oak"
 	location "Oak"
@@ -38,12 +40,15 @@ project "Oak"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
+
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -55,7 +60,8 @@ project "Oak"
 		defines
 		{
 			"OK_PLATFORM_WINDOWS",
-			"OK_BUILD_DLL"
+			"OK_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -65,14 +71,17 @@ project "Oak"
 
 	filter "configurations.Debug"
 		defines "OK_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations.Release"
 		defines "OK_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations.Dist"
 		defines "OK_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -112,12 +121,15 @@ project "Sandbox"
 
 	filter "configurations.Debug"
 		defines "OK_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations.Release"
 		defines "OK_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations.Dist"
 		defines "OK_DIST"
+		buildoptions "/MD"
 		optimize "On"
