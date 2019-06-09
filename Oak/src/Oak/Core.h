@@ -8,7 +8,7 @@
 	#endif
 #else
 	#error Oak only supports Windows!
-#endif
+#endif	
 
 #ifdef OK_ENABLE_ASSERTS
 	#define OK_ASSERT(x, ...) { if(!(x)) { OK_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}

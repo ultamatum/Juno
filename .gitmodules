@@ -4,3 +4,6 @@
 [submodule "Oak/vendor/GLFW"]
 	path = Oak/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Oak/vendor/imgui"]
+	path = Oak/vendor/imgui
+	url = https://github.com/TheCherno/imgui
