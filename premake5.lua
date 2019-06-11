@@ -1,6 +1,7 @@
 workspace "Oak"
 	architecture "x64"
 	startproject "Sandbox"
+	staticruntime "off"
 
 	configurations
 	{
@@ -17,9 +18,12 @@ IncludeDir["GLFW"] = "Oak/vendor/GLFW/include"
 IncludeDir["Glad"] = "Oak/vendor/Glad/include"
 IncludeDir["ImGui"] = "Oak/vendor/imgui"
 
-include "Oak/vendor/GLFW"
-include "Oak/vendor/Glad"
-include "Oak/vendor/imgui"
+group "Dependencies"
+	include "Oak/vendor/GLFW"
+	include "Oak/vendor/Glad"
+	include "Oak/vendor/imgui"
+
+group ""
 
 project "Oak"
 	location "Oak"
@@ -57,7 +61,6 @@ project "Oak"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -72,25 +75,26 @@ project "Oak"
 			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 		}
 
-	filter "configurations.Debug"
+	filter "configurations:Debug"
 		defines "OK_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
-	filter "configurations.Release"
+	filter "configurations:Release"
 		defines "OK_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
-	filter "configurations.Dist"
+	filter "configurations:Dist"
 		defines "OK_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -114,7 +118,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -122,17 +125,17 @@ project "Sandbox"
 			"OK_PLATFORM_WINDOWS",
 		}
 
-	filter "configurations.Debug"
+	filter "configurations:Debug"
 		defines "OK_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
-	filter "configurations.Release"
+	filter "configurations:Release"
 		defines "OK_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"
 
-	filter "configurations.Dist"
+	filter "configurations:Dist"
 		defines "OK_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		optimize "On"

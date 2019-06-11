@@ -10,6 +10,10 @@
 	#error Oak only supports Windows!
 #endif	
 
+#ifdef OK_DEBUG
+	#define OK_ENABLE_ASSERTS
+#endif  
+
 #ifdef OK_ENABLE_ASSERTS
 	#define OK_ASSERT(x, ...) { if(!(x)) { OK_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
 	#define OK_CORE_ASSERT(x, ...) { if(!(x)) { OK_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
