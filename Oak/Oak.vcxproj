@@ -158,11 +158,13 @@
     <ClInclude Include="src\Oak\Events\KeyEvent.h" />
     <ClInclude Include="src\Oak\Events\MouseEvent.h" />
     <ClInclude Include="src\Oak\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Oak\Input.h" />
     <ClInclude Include="src\Oak\Layer.h" />
     <ClInclude Include="src\Oak\LayerStack.h" />
     <ClInclude Include="src\Oak\Log.h" />
     <ClInclude Include="src\Oak\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\okpch.h" />
   </ItemGroup>
@@ -173,6 +175,7 @@
     <ClCompile Include="src\Oak\LayerStack.cpp" />
     <ClCompile Include="src\Oak\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\okpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
