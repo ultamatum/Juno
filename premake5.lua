@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Oak/vendor/GLFW/include"
 IncludeDir["Glad"] = "Oak/vendor/Glad/include"
 IncludeDir["ImGui"] = "Oak/vendor/imgui"
+IncludeDir["glm"] = "Oak/vendor/glm"
 
 group "Dependencies"
 	include "Oak/vendor/GLFW"
@@ -38,7 +39,9 @@ project "Oak"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -47,7 +50,8 @@ project "Oak"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -101,13 +105,14 @@ project "Sandbox"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
 	}
 
 	includedirs
 	{
 		"Oak/vendor/spdlog/include",
-		"Oak/src"
+		"Oak/src",
+		"{IncludeDir.glm}"
 	}
 
 	links
