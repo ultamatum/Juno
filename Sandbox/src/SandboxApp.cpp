@@ -14,7 +14,7 @@ class ExampleLayer : public Oak::Layer
 
 		void OnEvent(Oak::Event& event) override
 		{
-			OK_TRACE("{0}", event);
+			//OK_TRACE("{0}", event);
 		}
 };
 
