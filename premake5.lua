@@ -29,6 +29,7 @@ project "Oak"
 	location "Oak"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -112,6 +113,7 @@ project "Sandbox"
 	{
 		"Oak/vendor/spdlog/include",
 		"Oak/src",
+		"Oak/vendor",
 		"{IncludeDir.glm}"
 	}
 

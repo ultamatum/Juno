@@ -7,6 +7,8 @@
 #include "Oak/Events/Event.h"
 #include "Oak/Events/ApplicationEvent.h"
 
+#include "Oak/ImGui/ImGuiLayer.h"
+
 namespace Oak
 {
 	class OAK_API Application
@@ -29,6 +31,7 @@ namespace Oak
 			bool OnWindowClose(WindowCloseEvent& e);
 
 			std::unique_ptr<Window> m_Window;
+			ImGuiLayer* m_ImGuiLayer;
 			bool m_Running = true;
 			LayerStack m_LayerStack;
 
