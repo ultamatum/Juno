@@ -1,10 +1,14 @@
 #pragma once
 
 #ifdef  OK_PLATFORM_WINDOWS
-	#ifdef OK_BUILD_DLL
-		#define OAK_API __declspec(dllexport)
+	#if OK_DYNAMIC_LINK
+		#ifdef OK_BUILD_DLL
+			#define OAK_API __declspec(dllexport)
+		#else
+			#define OAK_API __declspec(dllimport)
+		#endif
 	#else
-		#define OAK_API __declspec(dllimport)
+		#define OAK_API
 	#endif
 #else
 	#error Oak only supports Windows!

@@ -27,8 +27,9 @@ group ""
 
 project "Oak"
 	location "Oak"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
 	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -43,6 +44,11 @@ project "Oak"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -64,40 +70,36 @@ project "Oak"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
 		{
 			"OK_PLATFORM_WINDOWS",
 			"OK_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
-		}
-
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
+			"
+			cppdialect "C++17""
 		}
 
 	filter "configurations:Debug"
 		defines "OK_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "OK_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "OK_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++17"
 	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -123,25 +125,24 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
 		{
-			"OK_PLATFORM_WINDOWS",
+			"OK_PLATFORM_WINDOWS"
 		}
 
 	filter "configurations:Debug"
 		defines "OK_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "OK_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "OK_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
