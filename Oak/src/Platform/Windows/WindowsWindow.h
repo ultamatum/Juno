@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Oak/Window.h"
+#include "Oak/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
@@ -30,6 +31,7 @@ namespace Oak
 
 		private:
 			GLFWwindow* m_Window;
+			GraphicsContext* m_Context;
 
 			struct WindowData
 			{
