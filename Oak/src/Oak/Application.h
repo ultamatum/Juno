@@ -1,3 +1,8 @@
+/*
+*	Oak Application class
+*	Used to generate an application object and manage layers
+*/
+
 #pragma once
 
 #include "Core.h"

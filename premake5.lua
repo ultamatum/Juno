@@ -76,8 +76,7 @@ project "Oak"
 		{
 			"OK_PLATFORM_WINDOWS",
 			"OK_BUILD_DLL",
-			"
-			cppdialect "C++17""
+			"GLFW_INCLUDE_NONE"
 		}
 
 	filter "configurations:Debug"

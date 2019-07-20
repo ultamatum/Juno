@@ -7,21 +7,25 @@
 
 namespace Oak
 {
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+	#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 	{
+		//Makes sure there isn't a duplicate application being created
 		OK_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
+		//Creates the window object
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
+		//Initializes Dear ImGui used for overlay and debugging
 		m_ImGuiLayer = new ImGuiLayer;
 		PushOverlay(m_ImGuiLayer);
 
+		//TEMP to build triangle 
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
@@ -46,23 +50,23 @@ namespace Oak
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	}
 
-	Application::~Application()
-	{
+	Application::~Application() {}
 
-	}
-
+	//Add a layer to the layer stack
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
+	//Adds an overlay to the layer stack (rendered last)
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 	}
 
+	//Dispatches event to the relevant callback function
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
@@ -70,6 +74,7 @@ namespace Oak
 
 		//OK_CORE_TRACE("{0}", e);
 
+		//Makes sure every layer has handled the event
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
 			(*--it)->OnEvent(e);
@@ -78,6 +83,7 @@ namespace Oak
 		}
 	}
 
+	//Program loop
 	void Application::Run()
 	{
 		while (m_Running)  
