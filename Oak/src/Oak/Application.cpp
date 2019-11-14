@@ -63,7 +63,7 @@ namespace Oak
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
-		layer->OnAttach();
+		layer->OnAttach(); 
 	}
 
 	//Dispatches event to the relevant callback function
