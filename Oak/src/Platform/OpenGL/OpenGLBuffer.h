@@ -20,7 +20,7 @@ namespace Oak
 			uint32_t m_RendererID;
 			BufferLayout m_Layout;
 	};
-
+	
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 		public:
