@@ -10,8 +10,8 @@ namespace Oak
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None:			OK_CORE_ASSERT(false, "RendererAPI::NONE is currently not supported!"); return nullptr;
-			case RendererAPI::OpenGL:		return new OpenGLVertexArray();
+			case RendererAPI::API::None:			OK_CORE_ASSERT(false, "RendererAPI::NONE is currently not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL:		return new OpenGLVertexArray();
 		}
 
 		OK_CORE_ASSERT(false, "Unknown RendererAPI!");
