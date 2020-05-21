@@ -14,14 +14,9 @@
 
 #include "Oak/ImGui/ImGuiLayer.h"
 
-#include "Oak/Renderer/Shader.h"
-#include "Oak/Renderer/Buffer.h"
-#include "Oak/Renderer/VertexArray.h"
-#include "Oak/Renderer/Camera.h"
-
 namespace Oak
 {
-	class OAK_API Application
+	class Application
 	{
 		public:
 			Application();
@@ -37,6 +32,7 @@ namespace Oak
 			inline Window& GetWindow() { return *m_Window; }
 
 			inline static Application& Get() { return *s_Instance; }
+
 		private:
 			bool OnWindowClose(WindowCloseEvent& e);
 
@@ -45,13 +41,6 @@ namespace Oak
 			bool m_Running = true;
 			LayerStack m_LayerStack;
 
-			std::shared_ptr<Shader> m_Shader;
-			std::shared_ptr<VertexArray> m_VertexArray;
-
-			std::shared_ptr<Shader> m_BlueShader;
-			std::shared_ptr<VertexArray> m_SquareVA;
-
-			OrthographicCamera m_Camera;
 		private:
 			static Application* s_Instance;
 	};

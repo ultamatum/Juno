@@ -12,6 +12,17 @@
 
 #include "Oak/ImGui/ImGuiLayer.h"
 
+// --------- Renderer ---------
+#include "Oak/Renderer/Renderer.h"
+#include "Oak/Renderer/RenderCommand.h"
+
+#include "Oak/Renderer/Buffer.h"
+#include "Oak/Renderer/Shader.h"
+#include "Oak/Renderer/VertexArray.h"
+
+#include "Oak/Renderer/Camera.h"
+//-----------------------------
+
 // -------- Entry Point -------
 #include "Oak/EntryPoint.h"
 //-----------------------------
