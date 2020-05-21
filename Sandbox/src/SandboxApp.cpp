@@ -1,14 +1,14 @@
-#include <Oak.h>
+#include <Juno.h>
 
 #include "imgui/imgui.h"
 
-class ExampleLayer : public Oak::Layer
+class ExampleLayer : public Juno::Layer
 {
 	public:
 		ExampleLayer()
 			: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 		{
-			m_VertexArray.reset(Oak::VertexArray::Create());
+			m_VertexArray.reset(Juno::VertexArray::Create());
 
 			float vertices[3 * 7] = {
 				-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -16,23 +16,23 @@ class ExampleLayer : public Oak::Layer
 				 0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 			};
 
-			std::shared_ptr<Oak::VertexBuffer> vertexBuffer;
-			vertexBuffer.reset(Oak::VertexBuffer::Create(vertices, sizeof(vertices)));
+			std::shared_ptr<Juno::VertexBuffer> vertexBuffer;
+			vertexBuffer.reset(Juno::VertexBuffer::Create(vertices, sizeof(vertices)));
 
-			Oak::BufferLayout layout = {
-				{ Oak::ShaderDataType::Float3, "a_Position" },
-				{ Oak::ShaderDataType::Float4, "a_Colour" }
+			Juno::BufferLayout layout = {
+				{ Juno::ShaderDataType::Float3, "a_Position" },
+				{ Juno::ShaderDataType::Float4, "a_Colour" }
 			};
 
 			vertexBuffer->SetLayout(layout);
 			m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 			unsigned int indices[3] = { 0, 1, 2 };
-			std::shared_ptr<Oak::IndexBuffer> indexBuffer;
-			indexBuffer.reset(Oak::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+			std::shared_ptr<Juno::IndexBuffer> indexBuffer;
+			indexBuffer.reset(Juno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 			m_VertexArray->SetIndexBuffer(indexBuffer);
 
-			m_SquareVA.reset(Oak::VertexArray::Create());
+			m_SquareVA.reset(Juno::VertexArray::Create());
 
 			float squareVertices[3 * 4] = {
 				 -0.75f, -0.75f, 0.0f,
@@ -41,16 +41,16 @@ class ExampleLayer : public Oak::Layer
 				 -0.75f,  0.75f, 0.0f
 			};
 
-			std::shared_ptr<Oak::VertexBuffer> squareVB;
-			squareVB.reset(Oak::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+			std::shared_ptr<Juno::VertexBuffer> squareVB;
+			squareVB.reset(Juno::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 			squareVB->SetLayout({
-				{ Oak::ShaderDataType::Float3, "a_Position" }
+				{ Juno::ShaderDataType::Float3, "a_Position" }
 								});
 			m_SquareVA->AddVertexBuffer(squareVB);
 
 			unsigned int squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-			std::shared_ptr<Oak::IndexBuffer> squareIB;
-			squareIB.reset(Oak::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+			std::shared_ptr<Juno::IndexBuffer> squareIB;
+			squareIB.reset(Juno::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 			m_SquareVA->SetIndexBuffer(squareIB);
 
 			std::string vertexSrc = R"(
@@ -88,7 +88,7 @@ class ExampleLayer : public Oak::Layer
 
 		)";
 
-			m_Shader.reset(new Oak::Shader(vertexSrc, fragmentSrc));
+			m_Shader.reset(new Juno::Shader(vertexSrc, fragmentSrc));
 
 			std::string blueShaderVertexSrc = R"(
 			#version 330 core
@@ -120,39 +120,39 @@ class ExampleLayer : public Oak::Layer
 			}
 		)";
 
-			m_BlueShader.reset(new Oak::Shader(blueShaderVertexSrc, blueShaderfragmentSrc));
+			m_BlueShader.reset(new Juno::Shader(blueShaderVertexSrc, blueShaderfragmentSrc));
 		}
 
 		void OnUpdate() override
 		{
-			if (Oak::Input::IsKeyPressed(OK_KEY_A))
+			if (Juno::Input::IsKeyPressed(JUNO_KEY_A))
 				m_CameraPosition.x -= m_CameraMoveSpeed;
-			else if (Oak::Input::IsKeyPressed(OK_KEY_D))
+			else if (Juno::Input::IsKeyPressed(JUNO_KEY_D))
 				m_CameraPosition.x += m_CameraMoveSpeed;
 
-			if (Oak::Input::IsKeyPressed(OK_KEY_W))
+			if (Juno::Input::IsKeyPressed(JUNO_KEY_W))
 				m_CameraPosition.y += m_CameraMoveSpeed;
-			else if (Oak::Input::IsKeyPressed(OK_KEY_S))
+			else if (Juno::Input::IsKeyPressed(JUNO_KEY_S))
 				m_CameraPosition.y -= m_CameraMoveSpeed;
 
-			if (Oak::Input::IsKeyPressed(OK_KEY_E))
+			if (Juno::Input::IsKeyPressed(JUNO_KEY_E))
 				m_CameraRotation -= m_CameraRotationSpeed;
-			else if (Oak::Input::IsKeyPressed(OK_KEY_Q))
+			else if (Juno::Input::IsKeyPressed(JUNO_KEY_Q))
 				m_CameraRotation += m_CameraRotationSpeed;
 
-			Oak::RenderCommand::SetClearColour({ 0.1f, 0.1f, 0.1f, 1 });
-			Oak::RenderCommand::Clear();
+			Juno::RenderCommand::SetClearColour({ 0.1f, 0.1f, 0.1f, 1 });
+			Juno::RenderCommand::Clear();
 			
 			m_Camera.SetPosition(m_CameraPosition);
 			m_Camera.SetRotation(m_CameraRotation);
 
-			Oak::Renderer::BeginScene(m_Camera);
+			Juno::Renderer::BeginScene(m_Camera);
 			
-			Oak::Renderer::Submit(m_BlueShader, m_SquareVA);
+			Juno::Renderer::Submit(m_BlueShader, m_SquareVA);
 			
-			Oak::Renderer::Submit(m_Shader, m_VertexArray);
+			Juno::Renderer::Submit(m_Shader, m_VertexArray);
 			
-			Oak::Renderer::EndScene();
+			Juno::Renderer::EndScene();
 		}
 
 		virtual void OnImGuiRender() override
@@ -160,18 +160,18 @@ class ExampleLayer : public Oak::Layer
 
 		}
 
-		void OnEvent(Oak::Event& event) override
+		void OnEvent(Juno::Event& event) override
 		{
 
 		}
 	private:
-		std::shared_ptr<Oak::Shader> m_Shader;
-		std::shared_ptr<Oak::VertexArray> m_VertexArray;
+		std::shared_ptr<Juno::Shader> m_Shader;
+		std::shared_ptr<Juno::VertexArray> m_VertexArray;
 
-		std::shared_ptr<Oak::Shader> m_BlueShader;
-		std::shared_ptr<Oak::VertexArray> m_SquareVA;
+		std::shared_ptr<Juno::Shader> m_BlueShader;
+		std::shared_ptr<Juno::VertexArray> m_SquareVA;
 
-		Oak::OrthographicCamera m_Camera;
+		Juno::OrthographicCamera m_Camera;
 		glm::vec3 m_CameraPosition;
 		float m_CameraMoveSpeed = 0.1;
 		
@@ -179,7 +179,7 @@ class ExampleLayer : public Oak::Layer
 		float m_CameraRotationSpeed = 2;
 };
 
-class Sandbox : public Oak::Application
+class Sandbox : public Juno::Application
 {
 	public:
 		Sandbox()
@@ -193,7 +193,7 @@ class Sandbox : public Oak::Application
 		}
 };
 
-Oak::Application* Oak::CreateApplication()
+Juno::Application* Juno::CreateApplication()
 {
 	return new Sandbox();
 }

@@ -1,4 +1,4 @@
-workspace "Oak"
+workspace "Juno"
 	architecture "x64"
 	startproject "Sandbox"
 
@@ -18,20 +18,20 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root
 IncludeDir = {}
-IncludeDir["GLFW"] = "Oak/vendor/GLFW/include"
-IncludeDir["Glad"] = "Oak/vendor/Glad/include"
-IncludeDir["ImGui"] = "Oak/vendor/imgui"
-IncludeDir["glm"] = "Oak/vendor/glm"
+IncludeDir["GLFW"] = "Juno/vendor/GLFW/include"
+IncludeDir["Glad"] = "Juno/vendor/Glad/include"
+IncludeDir["ImGui"] = "Juno/vendor/imgui"
+IncludeDir["glm"] = "Juno/vendor/glm"
 
 group "Dependencies"
-	include "Oak/vendor/GLFW"
-	include "Oak/vendor/Glad"
-	include "Oak/vendor/imgui"
+	include "Juno/vendor/GLFW"
+	include "Juno/vendor/Glad"
+	include "Juno/vendor/imgui"
 
 group ""
 
-project "Oak"
-	location "Oak"
+project "Juno"
+	location "Juno"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
@@ -40,8 +40,8 @@ project "Oak"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "okpch.h"
-	pchsource "Oak/src/okpch.cpp"
+	pchheader "junopch.h"
+	pchsource "Juno/src/junopch.cpp"
 
 	files
 	{
@@ -79,23 +79,23 @@ project "Oak"
 
 		defines
 		{
-			"OK_PLATFORM_WINDOWS",
-			"OK_BUILD_DLL",
+			"JUNO_PLATFORM_WINDOWS",
+			"JUNO_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
 	filter "configurations:Debug"
-		defines "OK_DEBUG"
+		defines "JUNO_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "OK_RELEASE"
+		defines "JUNO_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "OK_DIST"
+		defines "JUNO_DIST"
 		runtime "Release"
 		optimize "on"
 
@@ -117,15 +117,15 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Oak/vendor/spdlog/include",
-		"Oak/src",
-		"Oak/vendor",
+		"Juno/vendor/spdlog/include",
+		"Juno/src",
+		"Juno/vendor",
 		"%{IncludeDir.glm}"
 	}
 
 	links
 	{
-		"Oak"
+		"Juno"
 	}
 
 	filter "system:windows"
@@ -133,20 +133,20 @@ project "Sandbox"
 
 		defines
 		{
-			"OK_PLATFORM_WINDOWS"
+			"JUNO_PLATFORM_WINDOWS"
 		}
 
 	filter "configurations:Debug"
-		defines "OK_DEBUG"
+		defines "JUNO_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "OK_RELEASE"
+		defines "JUNO_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "OK_DIST"
+		defines "JUNO_DIST"
 		runtime "Release"
 		optimize "on"
