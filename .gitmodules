@@ -1,13 +1,13 @@
-[submodule "Oak/vendor/spdlog"]
-	path = Oak/vendor/spdlog
+[submodule "Juno/vendor/spdlog"]
+	path = Juno/vendor/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "Oak/vendor/GLFW"]
-	path = Oak/vendor/GLFW
+[submodule "Juno/vendor/GLFW"]
+	path = Juno/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
-[submodule "Oak/vendor/imgui"]
-	path = Oak/vendor/imgui
+[submodule "Juno/vendor/imgui"]
+	path = Juno/vendor/imgui
 	url = https://github.com/TheCherno/imgui
 	branch = docking
-[submodule "Oak/vendor/glm"]
-	path = Oak/vendor/glm
+[submodule "Juno/vendor/glm"]
+	path = Juno/vendor/glm
 	url = https://github.com/g-truc/glm
