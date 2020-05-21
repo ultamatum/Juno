@@ -17,6 +17,7 @@
 #include "Oak/Renderer/Shader.h"
 #include "Oak/Renderer/Buffer.h"
 #include "Oak/Renderer/VertexArray.h"
+#include "Oak/Renderer/Camera.h"
 
 namespace Oak
 {
@@ -49,6 +50,8 @@ namespace Oak
 
 			std::shared_ptr<Shader> m_BlueShader;
 			std::shared_ptr<VertexArray> m_SquareVA;
+
+			OrthographicCamera m_Camera;
 		private:
 			static Application* s_Instance;
 	};
