@@ -26,7 +26,7 @@ namespace Oak
 			glm::mat4 m_ViewMatrix;
 			glm::mat4 m_ViewProjectionMatrix;
 
-			glm::vec3 m_Position;
+			glm::vec3 m_Position = {0.0f, 0.0f, 0.0f};
 			float m_rotation = 0.0f;
 	};
 }

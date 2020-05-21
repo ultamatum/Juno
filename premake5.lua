@@ -9,6 +9,11 @@ workspace "Oak"
 		"Dist"
 	}
 
+	flags
+	{
+		"MultiProcessorCompile"
+	}
+
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root
@@ -115,7 +120,7 @@ project "Sandbox"
 		"Oak/vendor/spdlog/include",
 		"Oak/src",
 		"Oak/vendor",
-		"{IncludeDir.glm}"
+		"%{IncludeDir.glm}"
 	}
 
 	links

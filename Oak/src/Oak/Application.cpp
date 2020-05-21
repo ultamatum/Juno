@@ -12,7 +12,7 @@ namespace Oak
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
-		: m_Camera(-1.0f, 1.0f, -1.0f, 1.0f)
+		: m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		//Makes sure there isn't a duplicate application being created
 		OK_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -182,15 +182,11 @@ namespace Oak
 			RenderCommand::SetClearColour({ 0.1f, 0.1f, 0.1f, 1 });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
+			Renderer::BeginScene(m_Camera);
 
-			m_BlueShader->Bind();
-			m_BlueShader->UploadUniformMat4("u_ViewProjection", m_Camera.GetViewProjectionMatrix());
-			Renderer::Submit(m_SquareVA);
+			Renderer::Submit(m_BlueShader, m_SquareVA);
 
-			m_Shader->Bind();
-			m_Shader->UploadUniformMat4("u_ViewProjection", m_Camera.GetViewProjectionMatrix());
-			Renderer::Submit(m_VertexArray);
+			Renderer::Submit(m_Shader, m_VertexArray);
 
 			Renderer::EndScene();
 
