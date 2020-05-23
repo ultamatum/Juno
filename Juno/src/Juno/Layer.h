@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Juno/Core.h"
+#include "Juno/Core/Timestep.h"
 #include "Juno/Events/Event.h"
 
 namespace Juno
@@ -13,7 +14,7 @@ namespace Juno
 
 			virtual void OnAttach() {}
 			virtual void OnDetach() {}
-			virtual void OnUpdate() {}
+			virtual void OnUpdate(Timestep ts) {}
 			virtual void OnImGuiRender() {}
 			virtual void OnEvent(Event& event) {}
 

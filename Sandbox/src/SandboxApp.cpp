@@ -123,22 +123,22 @@ class ExampleLayer : public Juno::Layer
 			m_BlueShader.reset(new Juno::Shader(blueShaderVertexSrc, blueShaderfragmentSrc));
 		}
 
-		void OnUpdate() override
+		void OnUpdate(Juno::Timestep ts) override
 		{
 			if (Juno::Input::IsKeyPressed(JUNO_KEY_A))
-				m_CameraPosition.x -= m_CameraMoveSpeed;
+				m_CameraPosition.x -= m_CameraMoveSpeed * ts;
 			else if (Juno::Input::IsKeyPressed(JUNO_KEY_D))
-				m_CameraPosition.x += m_CameraMoveSpeed;
+				m_CameraPosition.x += m_CameraMoveSpeed * ts;
 
 			if (Juno::Input::IsKeyPressed(JUNO_KEY_W))
-				m_CameraPosition.y += m_CameraMoveSpeed;
+				m_CameraPosition.y += m_CameraMoveSpeed * ts;
 			else if (Juno::Input::IsKeyPressed(JUNO_KEY_S))
-				m_CameraPosition.y -= m_CameraMoveSpeed;
+				m_CameraPosition.y -= m_CameraMoveSpeed * ts;
 
 			if (Juno::Input::IsKeyPressed(JUNO_KEY_E))
-				m_CameraRotation -= m_CameraRotationSpeed;
+				m_CameraRotation -= m_CameraRotationSpeed * ts;
 			else if (Juno::Input::IsKeyPressed(JUNO_KEY_Q))
-				m_CameraRotation += m_CameraRotationSpeed;
+				m_CameraRotation += m_CameraRotationSpeed * ts;
 
 			Juno::RenderCommand::SetClearColour({ 0.1f, 0.1f, 0.1f, 1 });
 			Juno::RenderCommand::Clear();
@@ -173,10 +173,10 @@ class ExampleLayer : public Juno::Layer
 
 		Juno::OrthographicCamera m_Camera;
 		glm::vec3 m_CameraPosition;
-		float m_CameraMoveSpeed = 0.1;
+		float m_CameraMoveSpeed = 1;
 		
 		float m_CameraRotation = 0;
-		float m_CameraRotationSpeed = 2;
+		float m_CameraRotationSpeed = 30;
 };
 
 class Sandbox : public Juno::Application

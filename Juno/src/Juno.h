@@ -6,6 +6,8 @@
 #include "Juno/Layer.h"
 #include "Juno/Log.h"
 
+#include "Juno/Core/Timestep.h"
+
 #include "Juno/Input.h"
 #include "Juno/KeyCodes.h"
 #include "Juno/MouseButtonCodes.h"

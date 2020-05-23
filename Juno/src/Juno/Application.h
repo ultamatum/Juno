@@ -12,6 +12,8 @@
 #include "Juno/Events/Event.h"
 #include "Juno/Events/ApplicationEvent.h"
 
+#include "Juno/Core/Timestep.h"
+
 #include "Juno/ImGui/ImGuiLayer.h"
 
 namespace Juno
@@ -40,6 +42,7 @@ namespace Juno
 			ImGuiLayer* m_ImGuiLayer;
 			bool m_Running = true;
 			LayerStack m_LayerStack;
+			float m_LastFrameTime = 0.0f;
 
 		private:
 			static Application* s_Instance;
