@@ -3,6 +3,9 @@
 #include "imgui/imgui.h"
 
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
+#include "Platform/OpenGL/OpenGLShader.h"
 
 class ExampleLayer : public Juno::Layer
 {
@@ -91,9 +94,9 @@ class ExampleLayer : public Juno::Layer
 
 		)";
 
-			m_Shader.reset(new Juno::Shader(vertexSrc, fragmentSrc));
+			m_Shader.reset(Juno::Shader::Create(vertexSrc, fragmentSrc));
 
-			std::string blueShaderVertexSrc = R"(
+			std::string flatColourShaderVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
@@ -111,20 +114,22 @@ class ExampleLayer : public Juno::Layer
 
 		)";
 
-			std::string blueShaderfragmentSrc = R"(
+			std::string flatColourShaderfragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
 
+			uniform vec3 u_Colour;
+
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Colour, 1.0f);
 			}
 		)";
 
-			m_BlueShader.reset(new Juno::Shader(blueShaderVertexSrc, blueShaderfragmentSrc));
+			m_FlatColourShader.reset(Juno::Shader::Create(flatColourShaderVertexSrc, flatColourShaderfragmentSrc));
 		}
 
 		void OnUpdate(Juno::Timestep ts) override
@@ -154,6 +159,9 @@ class ExampleLayer : public Juno::Layer
 
 			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
 
+			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_FlatColourShader)->Bind();
+			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_FlatColourShader)->UploadUniformFloat3("u_Colour", m_SquareColour);
+
 			for (int y = 0; y < 20; y++)
 			{
 				for (int x = 0; x < 20; x++)
@@ -164,8 +172,8 @@ class ExampleLayer : public Juno::Layer
 					pos.y -= ((0.11f * 20) / 2);
 
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-
-					Juno::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+					
+					Juno::Renderer::Submit(m_FlatColourShader, m_SquareVA, transform);
 				}
 			}
 
@@ -176,7 +184,11 @@ class ExampleLayer : public Juno::Layer
 
 		virtual void OnImGuiRender() override
 		{
+			ImGui::Begin("Settings");
 
+			ImGui::ColorEdit3("Square Colour", glm::value_ptr(m_SquareColour));
+
+			ImGui::End();
 		}
 
 		void OnEvent(Juno::Event& event) override
@@ -187,7 +199,7 @@ class ExampleLayer : public Juno::Layer
 		std::shared_ptr<Juno::Shader> m_Shader;
 		std::shared_ptr<Juno::VertexArray> m_VertexArray;
 
-		std::shared_ptr<Juno::Shader> m_BlueShader;
+		std::shared_ptr<Juno::Shader> m_FlatColourShader;
 		std::shared_ptr<Juno::VertexArray> m_SquareVA;
 
 		Juno::OrthographicCamera m_Camera;
@@ -196,6 +208,8 @@ class ExampleLayer : public Juno::Layer
 		
 		float m_CameraRotation = 0;
 		float m_CameraRotationSpeed = 30;
+
+		glm::vec3 m_SquareColour = {0.2f, 0.3f, 0.8f};
 };
 
 class Sandbox : public Juno::Application
