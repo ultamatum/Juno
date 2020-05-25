@@ -20,6 +20,7 @@
 
 #include "Juno/Renderer/Buffer.h"
 #include "Juno/Renderer/Shader.h"
+#include "Juno/Renderer/Texture.h"
 #include "Juno/Renderer/VertexArray.h"
 
 #include "Juno/Renderer/Camera.h"

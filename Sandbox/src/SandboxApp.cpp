@@ -21,7 +21,7 @@ class ExampleLayer : public Juno::Layer
 				 0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 			};
 
-			std::shared_ptr<Juno::VertexBuffer> vertexBuffer;
+			Juno::Ref<Juno::VertexBuffer> vertexBuffer;
 			vertexBuffer.reset(Juno::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 			Juno::BufferLayout layout = {
@@ -33,28 +33,29 @@ class ExampleLayer : public Juno::Layer
 			m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 			unsigned int indices[3] = { 0, 1, 2 };
-			std::shared_ptr<Juno::IndexBuffer> indexBuffer;
+			Juno::Ref<Juno::IndexBuffer> indexBuffer;
 			indexBuffer.reset(Juno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 			m_VertexArray->SetIndexBuffer(indexBuffer);
 
 			m_SquareVA.reset(Juno::VertexArray::Create());
 
-			float squareVertices[3 * 4] = {
-				 -0.5f, -0.5f, 0.0f,
-				  0.5f, -0.5f, 0.0f,
-				  0.5f,  0.5f, 0.0f,
-				 -0.5f,  0.5f, 0.0f
+			float squareVertices[5* 4] = {
+				 -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+				  0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+				  0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+				 -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 			};
 
-			std::shared_ptr<Juno::VertexBuffer> squareVB;
+			Juno::Ref<Juno::VertexBuffer> squareVB;
 			squareVB.reset(Juno::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 			squareVB->SetLayout({
-				{ Juno::ShaderDataType::Float3, "a_Position" }
-								});
+				{ Juno::ShaderDataType::Float3, "a_Position" },
+				{ Juno::ShaderDataType::Float2, "a_Texcoord"}
+			});
 			m_SquareVA->AddVertexBuffer(squareVB);
 
 			unsigned int squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-			std::shared_ptr<Juno::IndexBuffer> squareIB;
+			Juno::Ref<Juno::IndexBuffer> squareIB;
 			squareIB.reset(Juno::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 			m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -130,6 +131,48 @@ class ExampleLayer : public Juno::Layer
 		)";
 
 			m_FlatColourShader.reset(Juno::Shader::Create(flatColourShaderVertexSrc, flatColourShaderfragmentSrc));
+
+			std::string textureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;			
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+
+		)";
+
+			std::string textureShaderfragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+			m_TextureShader.reset(Juno::Shader::Create(textureShaderVertexSrc, textureShaderfragmentSrc));
+
+			m_Texture = Juno::Texture2D::Create("assets/textures/Checkerboard.png");
+			m_LogoTexture = Juno::Texture2D::Create("assets/textures/Logo.png");
+
+			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_TextureShader)->Bind();
+			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 		}
 
 		void OnUpdate(Juno::Timestep ts) override
@@ -157,7 +200,7 @@ class ExampleLayer : public Juno::Layer
 
 			Juno::Renderer::BeginScene(m_Camera);
 
-			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f, 0.1f, 0.1f));
+			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_FlatColourShader)->Bind();
 			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_FlatColourShader)->UploadUniformFloat3("u_Colour", m_SquareColour);
@@ -177,7 +220,13 @@ class ExampleLayer : public Juno::Layer
 				}
 			}
 
-			Juno::Renderer::Submit(m_Shader, m_VertexArray);
+			m_Texture->Bind();
+			Juno::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5)));
+			m_LogoTexture->Bind();
+			Juno::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5)));
+
+			//Triangle
+			//Juno::Renderer::Submit(m_Shader, m_VertexArray);
 			
 			Juno::Renderer::EndScene();
 		}
@@ -196,11 +245,13 @@ class ExampleLayer : public Juno::Layer
 
 		}
 	private:
-		std::shared_ptr<Juno::Shader> m_Shader;
-		std::shared_ptr<Juno::VertexArray> m_VertexArray;
+		Juno::Ref<Juno::Shader> m_Shader;
+		Juno::Ref<Juno::VertexArray> m_VertexArray;
 
-		std::shared_ptr<Juno::Shader> m_FlatColourShader;
-		std::shared_ptr<Juno::VertexArray> m_SquareVA;
+		Juno::Ref<Juno::Shader> m_FlatColourShader, m_TextureShader;
+		Juno::Ref<Juno::VertexArray> m_SquareVA;
+
+		Juno::Ref<Juno::Texture2D> m_Texture, m_LogoTexture;
 
 		Juno::OrthographicCamera m_Camera;
 		glm::vec3 m_CameraPosition;
