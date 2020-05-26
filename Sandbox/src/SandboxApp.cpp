@@ -13,30 +13,6 @@ class ExampleLayer : public Juno::Layer
 		ExampleLayer()
 			: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
 		{
-			m_VertexArray.reset(Juno::VertexArray::Create());
-
-			float vertices[3 * 7] = {
-				-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
-				 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-				 0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
-			};
-
-			Juno::Ref<Juno::VertexBuffer> vertexBuffer;
-			vertexBuffer.reset(Juno::VertexBuffer::Create(vertices, sizeof(vertices)));
-
-			Juno::BufferLayout layout = {
-				{ Juno::ShaderDataType::Float3, "a_Position" },
-				{ Juno::ShaderDataType::Float4, "a_Colour" }
-			};
-
-			vertexBuffer->SetLayout(layout);
-			m_VertexArray->AddVertexBuffer(vertexBuffer);
-
-			unsigned int indices[3] = { 0, 1, 2 };
-			Juno::Ref<Juno::IndexBuffer> indexBuffer;
-			indexBuffer.reset(Juno::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
-			m_VertexArray->SetIndexBuffer(indexBuffer);
-
 			m_SquareVA.reset(Juno::VertexArray::Create());
 
 			float squareVertices[5* 4] = {
@@ -58,44 +34,6 @@ class ExampleLayer : public Juno::Layer
 			Juno::Ref<Juno::IndexBuffer> squareIB;
 			squareIB.reset(Juno::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 			m_SquareVA->SetIndexBuffer(squareIB);
-
-			std::string vertexSrc = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Colour;
-
-			uniform mat4 u_ViewProjection;
-
-			out vec3 v_Position;
-			out vec4 v_Colour;
-			uniform mat4 u_Transform;
-
-			void main()
-			{
-				v_Position = a_Position;
-				v_Colour = a_Colour;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-
-		)";
-
-			std::string fragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_Position;
-			in vec4 v_Colour;
-
-			void main()
-			{
-				color = v_Colour;
-			}
-
-		)";
-
-			m_Shader.reset(Juno::Shader::Create(vertexSrc, fragmentSrc));
 
 			std::string flatColourShaderVertexSrc = R"(
 			#version 330 core
@@ -130,15 +68,15 @@ class ExampleLayer : public Juno::Layer
 			}
 		)";
 
-			m_FlatColourShader.reset(Juno::Shader::Create(flatColourShaderVertexSrc, flatColourShaderfragmentSrc));
+			m_FlatColourShader = Juno::Shader::Create("Flat Colour", flatColourShaderVertexSrc, flatColourShaderfragmentSrc);
 
-			m_TextureShader.reset(Juno::Shader::Create("assets/shaders/Texture.glsl"));
+			auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 			m_Texture = Juno::Texture2D::Create("assets/textures/Checkerboard.png");
 			m_LogoTexture = Juno::Texture2D::Create("assets/textures/Logo.png");
 
-			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_TextureShader)->Bind();
-			std::dynamic_pointer_cast<Juno::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+			std::dynamic_pointer_cast<Juno::OpenGLShader>(textureShader)->Bind();
+			std::dynamic_pointer_cast<Juno::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 		}
 
 		void OnUpdate(Juno::Timestep ts) override
@@ -186,14 +124,13 @@ class ExampleLayer : public Juno::Layer
 				}
 			}
 
-			m_Texture->Bind();
-			Juno::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5)));
-			m_LogoTexture->Bind();
-			Juno::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5)));
+			auto textureShader = m_ShaderLibrary.Get("Texture");
 
-			//Triangle
-			//Juno::Renderer::Submit(m_Shader, m_VertexArray);
-			
+			m_Texture->Bind();
+			Juno::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5)));
+			m_LogoTexture->Bind();
+			Juno::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5)));
+
 			Juno::Renderer::EndScene();
 		}
 
@@ -211,10 +148,9 @@ class ExampleLayer : public Juno::Layer
 
 		}
 	private:
-		Juno::Ref<Juno::Shader> m_Shader;
-		Juno::Ref<Juno::VertexArray> m_VertexArray;
+		Juno::ShaderLibrary m_ShaderLibrary;
 
-		Juno::Ref<Juno::Shader> m_FlatColourShader, m_TextureShader;
+		Juno::Ref<Juno::Shader> m_FlatColourShader;
 		Juno::Ref<Juno::VertexArray> m_SquareVA;
 
 		Juno::Ref<Juno::Texture2D> m_Texture, m_LogoTexture;

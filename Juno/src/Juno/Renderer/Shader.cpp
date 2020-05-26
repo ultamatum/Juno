@@ -6,27 +6,65 @@
 
 namespace Juno
 {
-	Juno::Shader* Shader::Create(const std::string& filepath)
+	Ref<Shader> Shader::Create(const std::string& filepath)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:		JUNO_CORE_ASSERT(false, "RendererAPI::NONE is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:		return new OpenGLShader(filepath);
+			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGLShader>(filepath);
 		}
 
 		JUNO_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
-	Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragSrc)
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:		JUNO_CORE_ASSERT(false, "RendererAPI::NONE is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:		return new OpenGLShader(vertexSrc, fragSrc);
+			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		JUNO_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
+
+	void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
+	{
+		JUNO_CORE_ASSERT(!Exists(name), "Shader already exists!");
+		m_Shaders[name] = shader;
+	}
+
+	void ShaderLibrary::Add(const Ref<Shader>& shader)
+	{
+		auto& name = shader->GetName();
+		Add(name, shader);
+	}
+
+	Juno::Ref<Juno::Shader> ShaderLibrary::Load(const std::string& filepath)
+	{
+		auto shader = Shader::Create(filepath);
+		Add(shader);
+		return shader;
+	}
+
+	Juno::Ref<Juno::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filepath)
+	{
+		auto shader = Shader::Create(filepath);
+		Add(name, shader);
+		return shader;
+	}
+
+	Juno::Ref<Juno::Shader> ShaderLibrary::Get(const std::string& name)
+	{
+		JUNO_CORE_ASSERT(Exists(name), "Shader not found!");
+		return m_Shaders[name];
+	}
+
+	bool ShaderLibrary::Exists(const std::string& name) const
+	{
+		return m_Shaders.find(name) != m_Shaders.end();
+	}
+
 }
