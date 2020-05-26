@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Juno/Window.h"
+#include "Juno/Core/Window.h"
 #include "Juno/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

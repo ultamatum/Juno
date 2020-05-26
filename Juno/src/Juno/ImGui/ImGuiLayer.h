@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Juno/Layer.h"
+#include "Juno/Core/Layer.h"
 
 #include "Juno/Events/ApplicationEvent.h"
 #include "Juno/Events/KeyEvent.h"

@@ -1,7 +1,7 @@
 #include "junopch.h"
 #include "WindowsInput.h"
 
-#include "Juno/Application.h"
+#include "Juno/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Juno

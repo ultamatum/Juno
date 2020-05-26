@@ -8,7 +8,7 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Juno/LayerStack.h"
+#include "Juno/Core/LayerStack.h"
 #include "Juno/Events/Event.h"
 #include "Juno/Events/ApplicationEvent.h"
 

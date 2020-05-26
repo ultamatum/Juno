@@ -2,16 +2,16 @@
 
 //For use by Juno applications
 
-#include "Juno/Application.h"
-#include "Juno/Layer.h"
-#include "Juno/Log.h"
+#include "Juno/Core/Application.h"
+#include "Juno/Core/Layer.h"
+#include "Juno/Core/Log.h"
 
 #include "Juno/Core/Timestep.h"
 
-#include "Juno/Input.h"
-#include "Juno/KeyCodes.h"
-#include "Juno/MouseButtonCodes.h"
-#include "Juno/OrthographicCameraController.h"
+#include "Juno/Core/Input.h"
+#include "Juno/Core/KeyCodes.h"
+#include "Juno/Core/MouseButtonCodes.h"
+#include "Juno/Renderer/CameraController.h"
 
 #include "Juno/ImGui/ImGuiLayer.h"
 
@@ -28,5 +28,5 @@
 //-----------------------------
 
 // -------- Entry Point -------
-#include "Juno/EntryPoint.h"
+#include "Juno/Core/EntryPoint.h"
 //-----------------------------

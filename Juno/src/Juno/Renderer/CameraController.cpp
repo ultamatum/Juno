@@ -1,12 +1,11 @@
 #include "junopch.h"
-#include "OrthographicCameraController.h"
+#include "CameraController.h"
 
-#include "Juno/Input.h"
-#include "Juno/KeyCodes.h"
+#include "Juno/Core/Input.h"
+#include "Juno/Core/KeyCodes.h"
 
 namespace Juno
 {
-
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
 		:m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)
 	{

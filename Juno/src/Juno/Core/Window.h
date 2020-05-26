@@ -2,7 +2,7 @@
 
 #include "junopch.h"
 
-#include "Juno/Core.h"
+#include "Juno/Core/Core.h"
 #include "Juno/Events/Event.h"
 
 namespace Juno

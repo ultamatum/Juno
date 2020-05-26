@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Juno/Input.h"
+#include "Juno/Core/Input.h"
 
 namespace Juno
 {

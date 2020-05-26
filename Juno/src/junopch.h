@@ -17,7 +17,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Juno/Log.h"
+#include "Juno/Core/Log.h"
 
 #ifdef JUNO_PLATFORM_WINDOWS
 	#include <Windows.h>
