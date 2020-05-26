@@ -11,7 +11,7 @@ class ExampleLayer : public Juno::Layer
 {
 	public:
 		ExampleLayer()
-			: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+			: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 		{
 			m_SquareVA.reset(Juno::VertexArray::Create());
 
@@ -81,28 +81,14 @@ class ExampleLayer : public Juno::Layer
 
 		void OnUpdate(Juno::Timestep ts) override
 		{
-			if (Juno::Input::IsKeyPressed(JUNO_KEY_A))
-				m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-			else if (Juno::Input::IsKeyPressed(JUNO_KEY_D))
-				m_CameraPosition.x += m_CameraMoveSpeed * ts;
+			//Update
+			m_CameraController.OnUpdate(ts);
 
-			if (Juno::Input::IsKeyPressed(JUNO_KEY_W))
-				m_CameraPosition.y += m_CameraMoveSpeed * ts;
-			else if (Juno::Input::IsKeyPressed(JUNO_KEY_S))
-				m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-
-			if (Juno::Input::IsKeyPressed(JUNO_KEY_E))
-				m_CameraRotation -= m_CameraRotationSpeed * ts;
-			else if (Juno::Input::IsKeyPressed(JUNO_KEY_Q))
-				m_CameraRotation += m_CameraRotationSpeed * ts;
-
+			//Render
 			Juno::RenderCommand::SetClearColour({ 0.1f, 0.1f, 0.1f, 1 });
 			Juno::RenderCommand::Clear();
-			
-			m_Camera.SetPosition(m_CameraPosition);
-			m_Camera.SetRotation(m_CameraRotation);
 
-			Juno::Renderer::BeginScene(m_Camera);
+			Juno::Renderer::BeginScene(m_CameraController.GetCamera());
 
 			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -143,9 +129,9 @@ class ExampleLayer : public Juno::Layer
 			ImGui::End();
 		}
 
-		void OnEvent(Juno::Event& event) override
+		void OnEvent(Juno::Event& e) override
 		{
-
+			m_CameraController.OnEvent(e);
 		}
 	private:
 		Juno::ShaderLibrary m_ShaderLibrary;
@@ -155,12 +141,7 @@ class ExampleLayer : public Juno::Layer
 
 		Juno::Ref<Juno::Texture2D> m_Texture, m_LogoTexture;
 
-		Juno::OrthographicCamera m_Camera;
-		glm::vec3 m_CameraPosition;
-		float m_CameraMoveSpeed = 1;
-		
-		float m_CameraRotation = 0;
-		float m_CameraRotationSpeed = 30;
+		Juno::OrthographicCameraController m_CameraController;
 
 		glm::vec3 m_SquareColour = {0.2f, 0.3f, 0.8f};
 };

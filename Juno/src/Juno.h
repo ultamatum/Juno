@@ -11,6 +11,7 @@
 #include "Juno/Input.h"
 #include "Juno/KeyCodes.h"
 #include "Juno/MouseButtonCodes.h"
+#include "Juno/OrthographicCameraController.h"
 
 #include "Juno/ImGui/ImGuiLayer.h"
 
