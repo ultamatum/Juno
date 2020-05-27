@@ -17,6 +17,7 @@
 
 // --------- Renderer ---------
 #include "Juno/Renderer/Renderer.h"
+#include "Juno/Renderer/Renderer2D.h"
 #include "Juno/Renderer/RenderCommand.h"
 
 #include "Juno/Renderer/Buffer.h"
