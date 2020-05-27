@@ -1,9 +1,11 @@
 [submodule "Juno/vendor/spdlog"]
 	path = Juno/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+	branch = v1.x
 [submodule "Juno/vendor/GLFW"]
 	path = Juno/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+	branch = master
 [submodule "Juno/vendor/imgui"]
 	path = Juno/vendor/imgui
 	url = https://github.com/TheCherno/imgui
@@ -11,3 +13,4 @@
 [submodule "Juno/vendor/glm"]
 	path = Juno/vendor/glm
 	url = https://github.com/g-truc/glm
+	branch = master

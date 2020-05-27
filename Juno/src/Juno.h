@@ -26,7 +26,3 @@
 
 #include "Juno/Renderer/Camera.h"
 //-----------------------------
-
-// -------- Entry Point -------
-#include "Juno/Core/EntryPoint.h"
-//-----------------------------

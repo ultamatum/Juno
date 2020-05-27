@@ -6,12 +6,12 @@
 
 namespace Juno
 {
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:		JUNO_CORE_ASSERT(false, "RendererAPI::NONE is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:		return new OpenGLVertexArray();
+			case RendererAPI::API::OpenGL:		return CreateRef<OpenGLVertexArray>();
 		}
 
 		JUNO_CORE_ASSERT(false, "Unknown RendererAPI!");

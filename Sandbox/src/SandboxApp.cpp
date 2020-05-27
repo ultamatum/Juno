@@ -1,4 +1,5 @@
 #include <Juno.h>
+#include <Juno/Core/EntryPoint.h>
 
 #include "imgui/imgui.h"
 
@@ -7,13 +8,15 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
+#include "Sandbox2D.h"
+
 class ExampleLayer : public Juno::Layer
 {
 	public:
 		ExampleLayer()
 			: Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 		{
-			m_SquareVA.reset(Juno::VertexArray::Create());
+			m_SquareVA = Juno::VertexArray::Create();
 
 			float squareVertices[5* 4] = {
 				 -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -151,7 +154,8 @@ class Sandbox : public Juno::Application
 	public:
 		Sandbox()
 		{
-			PushLayer(new ExampleLayer());
+			// PushLayer(new ExampleLayer());
+			PushLayer(new Sandbox2D());
 		}
 
 		~Sandbox()
