@@ -35,7 +35,7 @@
 #elif defined(__ANDROID__)
 	#define JUNO_PLATFORM_ANDROID
 	#error "Android is not supported!"
-#elif defined(__LINUX__)
+#elif defined(__linux__)
 	#define JUNO_PLATFORM_LINUX
 #else 
 	/* Unknown compiler / platform */
