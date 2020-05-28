@@ -2,6 +2,8 @@
 
 #include "Camera.h"
 
+#include "Texture.h"
+
 namespace Juno
 {
 	class Renderer2D
@@ -16,5 +18,7 @@ namespace Juno
 			//Primitives
 			static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& colour);
 			static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& colour);
+			static void DrawQuad(const glm::vec2& position, const glm::vec2& size, const Ref<Texture2D>& texture);
+			static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture);
 	};
 }
