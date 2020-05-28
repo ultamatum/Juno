@@ -37,7 +37,6 @@
 	#error "Android is not supported!"
 #elif defined(__LINUX__)
 	#define JUNO_PLATFORM_LINUX
-	#error "Linux is not supported"
 #else 
 	/* Unknown compiler / platform */
 	#error "Unknown platform!"
@@ -55,7 +54,7 @@
 		#define JUNO_API
 	#endif
 #else
-	#error "Juno only supports Windows!"
+	#define JUNO_API
 #endif
 
 #ifdef JUNO_DEBUG

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef JUNO_PLATFORM_WINDOWS
+#ifdef JUNO_PLATFORM_WINDOWS || JUNO_PLATFORM_LINUX
 
 extern Juno::Application* Juno::CreateApplication();
 
