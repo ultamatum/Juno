@@ -21,6 +21,9 @@ project "Glad"
 	filter "system:windows"
         systemversion "latest"
 
+    filter "system:windows"
+        pic "on"
+
     filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"

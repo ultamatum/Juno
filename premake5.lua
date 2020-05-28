@@ -74,8 +74,7 @@ project "Juno"
 	{
 		"GLFW",
 		"Glad",
-		"ImGui",
-		"opengl32.lib"
+		"ImGui"
 	}
 
 	filter "system:windows"
@@ -85,6 +84,26 @@ project "Juno"
 		{
 			"JUNO_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
+		}
+
+		links
+		{
+			"opengl32.lib"
+		}
+
+	filter "system:linux"
+		pic "on"
+
+		links
+		{
+			"Xrandr",
+			"Xi",
+			"GLEW",
+			"GLU",
+			"GL",
+			"X11",
+			"pthread",
+			"d1"
 		}
 
 	filter "configurations:Debug"
@@ -133,6 +152,20 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
+
+	filter "sytem:linux"
+
+		links
+		{
+			"Xrandr",
+			"Xi",
+			"GLEW",
+			"GLU",
+			"GL",
+			"X11",
+			"pthread",
+			"d1"
+		}
 
 	filter "configurations:Debug"
 		defines "JUNO_DEBUG"
