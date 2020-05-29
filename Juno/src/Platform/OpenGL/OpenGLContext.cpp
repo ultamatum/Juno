@@ -14,6 +14,8 @@ namespace Juno
 
 	void OpenGLContext::Init()
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		JUNO_CORE_ASSERT(status, "Failed to initialize Glad!");
@@ -37,6 +39,8 @@ namespace Juno
 
 	void OpenGLContext::SwapBuffers()
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }

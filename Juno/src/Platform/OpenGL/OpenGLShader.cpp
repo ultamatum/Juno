@@ -20,6 +20,8 @@ namespace Juno
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		std::string source = ReadFile(filepath);
 
 		auto shaderSources = PreProcess(source);
@@ -33,6 +35,8 @@ namespace Juno
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		:m_Name(name)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 
 		sources[GL_VERTEX_SHADER] = vertexSrc;
@@ -43,11 +47,15 @@ namespace Juno
 
 	OpenGLShader::~OpenGLShader()
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 
@@ -69,6 +77,8 @@ namespace Juno
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* typeToken = "#type";
@@ -96,6 +106,8 @@ namespace Juno
 
 	void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		JUNO_CORE_ASSERT(shaderSources.size() <= 2, "We only support 2 shaders for now");
 		std::array<GLenum, 2> glShaderIDs;
@@ -180,11 +192,15 @@ namespace Juno
 
 	void OpenGLShader::Bind() const
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Unbind() const
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 

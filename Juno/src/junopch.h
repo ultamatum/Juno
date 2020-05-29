@@ -19,6 +19,8 @@
 
 #include "Juno/Core/Log.h"
 
+#include "Juno/Debug/Instrumentor.h"
+
 #ifdef JUNO_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

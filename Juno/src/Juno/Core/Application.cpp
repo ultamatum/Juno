@@ -15,12 +15,14 @@ namespace Juno
 
 	Application::Application()
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		//Makes sure there isn't a duplicate application being created
 		JUNO_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		//Creates the window object
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window = Window::Create();
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		Renderer::Init();
@@ -30,11 +32,18 @@ namespace Juno
 		PushOverlay(m_ImGuiLayer);
 	}
 
-	Application::~Application() {}
+	Application::~Application() 
+	{
+		JUNO_PROFILE_FUNCTION();
+
+		Renderer::Shutdown();
+	}
 
 	//Add a layer to the layer stack
 	void Application::PushLayer(Layer* layer)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
@@ -42,6 +51,8 @@ namespace Juno
 	//Adds an overlay to the layer stack (rendered last)
 	void Application::PushOverlay(Layer* layer)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach(); 
 	}
@@ -49,6 +60,8 @@ namespace Juno
 	//Dispatches event to the relevant callback function
 	void Application::OnEvent(Event& e)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
@@ -65,22 +78,34 @@ namespace Juno
 	//Program loop
 	void Application::Run()
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		while (m_Running)  
 		{
+			JUNO_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
-			}
+				{
+					JUNO_PROFILE_SCOPE("LayerStack OnUpdate");
 
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
+
+				{
+					JUNO_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
+					m_ImGuiLayer->Begin();
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+					m_ImGuiLayer->End();
+				}
+			}
 
 			m_Window->OnUpdate();
 		}
@@ -94,6 +119,8 @@ namespace Juno
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		JUNO_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;
