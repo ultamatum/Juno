@@ -10,3 +10,6 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.ini
+
+##Juno temp files
+**.json
