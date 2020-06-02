@@ -10,7 +10,7 @@
 
 #include "Juno/Core/Input.h"
 #include "Juno/Core/KeyCodes.h"
-#include "Juno/Core/MouseButtonCodes.h"
+#include "Juno/Core/MouseCodes.h"
 #include "Juno/Renderer/CameraController.h"
 
 #include "Juno/ImGui/ImGuiLayer.h"

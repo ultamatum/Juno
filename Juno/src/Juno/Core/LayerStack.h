@@ -5,7 +5,7 @@
 
 namespace Juno
 {
-	class JUNO_API LayerStack
+	class LayerStack
 	{
 		public:
 			LayerStack();

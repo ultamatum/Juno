@@ -11,6 +11,10 @@ bin-int/
 **.vcxproj.filters
 **.ini
 
-##Juno temp files
-**.json
+##Juno files
+*.log
 *.json
+*.json
+Sandbox/JunoProfile-Startup.json
+Sandbox/JunoProfile-Shutdown.json
+Sandbox/JunoProfile-Runtime.json

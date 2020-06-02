@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Event.h"
+#include "Juno/Events/Event.h"
+#include "Juno/Core/Input.h"
 
 namespace Juno
 {
-	class JUNO_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 		public:
 			MouseMovedEvent(float x, float y)
@@ -27,7 +28,7 @@ namespace Juno
 			float m_MouseX, m_MouseY;
 	};
 
-	class JUNO_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 		public:
 			MouseScrolledEvent(float xOffset, float yOffset)
@@ -49,23 +50,23 @@ namespace Juno
 			float m_XOffset, m_YOffset;
 	};
 
-	class JUNO_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 		public:
-			inline int GetMouseButton() const { return m_Button; }
+			inline MouseCode GetMouseButton() const { return m_Button; }
 
 			EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 		protected:
-			MouseButtonEvent(int button)
+			MouseButtonEvent(MouseCode button)
 				: m_Button(button) {}
 
-			int m_Button;
+			MouseCode m_Button;
 	};
 
-	class JUNO_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 		public:
-			MouseButtonPressedEvent(int button)
+			MouseButtonPressedEvent(MouseCode button)
 				: MouseButtonEvent(button) {}
 
 			std::string ToString() const override
@@ -78,10 +79,10 @@ namespace Juno
 			EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class JUNO_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 		public:
-			MouseButtonReleasedEvent(int button)
+			MouseButtonReleasedEvent(MouseCode button)
 				: MouseButtonEvent(button) {}
 
 			std::string ToString() const override

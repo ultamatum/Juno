@@ -1,28 +1,31 @@
 #pragma once
 
 #include "Juno/Core/Core.h"
+#include "Juno/Core/KeyCodes.h"
+#include "Juno/Core/MouseCodes.h"
 
 namespace Juno
 {
-	class JUNO_API Input
+	class Input
 	{
 		public:
-			inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); };
+			inline static bool IsKeyPressed(KeyCode key) { return s_Instance->IsKeyPressedImpl(key); };
 
-			inline static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }
+			inline static bool IsMouseButtonPressed(MouseCode button) { return s_Instance->IsMouseButtonPressedImpl(button); }
 			inline static std::pair<float, float> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
 			inline static float GetMouseX() { return s_Instance->GetMouseXImpl(); }
 			inline static float GetMouseY() { return s_Instance->GetMouseYImpl(); }
 
-		protected:
-			virtual bool IsKeyPressedImpl(int keycode) = 0;
+			static Scope<Input> Create();
 
-			virtual bool IsMouseButtonPressedImpl(int button) = 0;
+		protected:
+			virtual bool IsKeyPressedImpl(KeyCode key) = 0;
+
+			virtual bool IsMouseButtonPressedImpl(MouseCode button) = 0;
 			virtual std::pair<float, float> GetMousePositionImpl() = 0;
 			virtual float GetMouseXImpl() = 0;
 			virtual float GetMouseYImpl() = 0;
 			
-
 		private:
 			static Scope<Input> s_Instance;
 	};
