@@ -18,10 +18,5 @@ class Sandbox2D : public Juno::Layer
 		Juno::OrthographicCameraController m_CameraController;
 
 		//Temp
-		Juno::Ref<Juno::VertexArray> m_SquareVA;
-		Juno::Ref<Juno::Shader> m_FlatColourShader;
-
 		Juno::Ref<Juno::Texture2D> m_CheckerboardTexture;
-
-		glm::vec4 m_SquareColour = { 0.2f, 0.3f, 0.8f, 1.0f };
 };
