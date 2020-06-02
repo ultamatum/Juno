@@ -22,7 +22,7 @@ namespace Juno
 	};
 
 	//Interface representing a desktop system based Window
-	class JUNO_API Window
+	class Window
 	{
 		public:
 			using EventCallbackFn = std::function<void(Event&)>;
