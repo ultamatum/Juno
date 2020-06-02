@@ -43,23 +43,9 @@
 #endif
 
 //DLL support
-#ifdef JUNO_PLATFORM_WINDOWS
-	#if JUNO_DYNAMIC_LINK
-		#ifdef JUNO_BUILD_DLL
-			#define JUNO_API __declspec(dllexport)
-		#else
-			#define JUNO_API __declspec(dllimport)
-		#endif
-	#else
-		#define JUNO_API
-	#endif
-#else
-	#define JUNO_API
-#endif
-
 #ifdef JUNO_DEBUG
 	#define JUNO_ENABLE_ASSERTS
-#endif  
+#endif
 
 //Assertion used primarily for debugging purposes, to be disabled for end client
 #ifdef JUNO_ENABLE_ASSERTS
