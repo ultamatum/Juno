@@ -26,7 +26,7 @@ class ExampleLayer : public Juno::Layer
 			};
 
 			Juno::Ref<Juno::VertexBuffer> squareVB;
-			squareVB.reset(Juno::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+			squareVB = Juno::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 			squareVB->SetLayout({
 				{ Juno::ShaderDataType::Float3, "a_Position" },
 				{ Juno::ShaderDataType::Float2, "a_Texcoord"}
@@ -35,7 +35,7 @@ class ExampleLayer : public Juno::Layer
 
 			unsigned int squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 			Juno::Ref<Juno::IndexBuffer> squareIB;
-			squareIB.reset(Juno::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+			squareIB = Juno::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 			m_SquareVA->SetIndexBuffer(squareIB);
 
 			std::string flatColourShaderVertexSrc = R"(
