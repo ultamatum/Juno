@@ -16,6 +16,8 @@
 
 #include "Juno/ImGui/ImGuiLayer.h"
 
+int main(int argc, char** argv);
+
 namespace Juno
 {
 	class Application
@@ -24,8 +26,6 @@ namespace Juno
 			Application();
 			virtual ~Application();
 			
-			void Run();
-
 			void OnEvent(Event& e);
 
 			void PushLayer(Layer* layer);
@@ -36,6 +36,7 @@ namespace Juno
 			inline static Application& Get() { return *s_Instance; }
 
 		private:
+			void Run();
 			bool OnWindowClose(WindowCloseEvent& e);
 			bool OnWindowResize(WindowResizeEvent& e);
 
@@ -48,6 +49,7 @@ namespace Juno
 
 		private:
 			static Application* s_Instance;
+			friend int ::main(int argc, char** argv);
 	};
 
 	// To be defined in CLIENT
