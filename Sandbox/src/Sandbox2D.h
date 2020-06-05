@@ -2,6 +2,8 @@
 
 #include "Juno.h"
 
+#include "ParticleSystem.h"
+
 class Sandbox2D : public Juno::Layer
 {
 	public:
@@ -19,4 +21,7 @@ class Sandbox2D : public Juno::Layer
 
 		//Temp
 		Juno::Ref<Juno::Texture2D> m_CheckerboardTexture;
+		
+		ParticleSystem m_ParticleSystem;
+		ParticleProps m_Particle;
 };

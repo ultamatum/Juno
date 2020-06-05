@@ -27,15 +27,15 @@ namespace Juno
 	}
 }
 
-#define JUNO_MOUSE_BUTTON_0      ::Hazel::Mouse::Button0
-#define JUNO_MOUSE_BUTTON_1      ::Hazel::Mouse::Button1
-#define JUNO_MOUSE_BUTTON_2      ::Hazel::Mouse::Button2
-#define JUNO_MOUSE_BUTTON_3      ::Hazel::Mouse::Button3
-#define JUNO_MOUSE_BUTTON_4      ::Hazel::Mouse::Button4
-#define JUNO_MOUSE_BUTTON_5      ::Hazel::Mouse::Button5
-#define JUNO_MOUSE_BUTTON_6      ::Hazel::Mouse::Button6
-#define JUNO_MOUSE_BUTTON_7      ::Hazel::Mouse::Button7
-#define JUNO_MOUSE_BUTTON_LAST   ::Hazel::Mouse::ButtonLast
-#define JUNO_MOUSE_BUTTON_LEFT   ::Hazel::Mouse::ButtonLeft
-#define JUNO_MOUSE_BUTTON_RIGHT  ::Hazel::Mouse::ButtonRight
-#define JUNO_MOUSE_BUTTON_MIDDLE ::Hazel::Mouse::ButtonMiddle
+#define JUNO_MOUSE_BUTTON_0      ::Juno::Mouse::Button0
+#define JUNO_MOUSE_BUTTON_1      ::Juno::Mouse::Button1
+#define JUNO_MOUSE_BUTTON_2      ::Juno::Mouse::Button2
+#define JUNO_MOUSE_BUTTON_3      ::Juno::Mouse::Button3
+#define JUNO_MOUSE_BUTTON_4      ::Juno::Mouse::Button4
+#define JUNO_MOUSE_BUTTON_5      ::Juno::Mouse::Button5
+#define JUNO_MOUSE_BUTTON_6      ::Juno::Mouse::Button6
+#define JUNO_MOUSE_BUTTON_7      ::Juno::Mouse::Button7
+#define JUNO_MOUSE_BUTTON_LAST   ::Juno::Mouse::ButtonLast
+#define JUNO_MOUSE_BUTTON_LEFT   ::Juno::Mouse::ButtonLeft
+#define JUNO_MOUSE_BUTTON_RIGHT  ::Juno::Mouse::ButtonRight
+#define JUNO_MOUSE_BUTTON_MIDDLE ::Juno::Mouse::ButtonMiddle
