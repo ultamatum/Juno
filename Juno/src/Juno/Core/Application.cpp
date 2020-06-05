@@ -57,7 +57,12 @@ namespace Juno
 		layer->OnAttach(); 
 	}
 
-	//Dispatches event to the relevant callback function
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
+		//Dispatches event to the relevant callback function
 	void Application::OnEvent(Event& e)
 	{
 		JUNO_PROFILE_FUNCTION();
