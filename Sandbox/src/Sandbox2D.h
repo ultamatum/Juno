@@ -29,6 +29,4 @@ class Sandbox2D : public Juno::Layer
 
 		uint32_t m_MapWidth, m_MapHeight;
 		std::unordered_map<char, Juno::Ref<Juno::SubTexture2D>> s_TextureMap;
-
-		glm::vec3 barPos = { 10.0f, 10.0f, 0.5f };
 };

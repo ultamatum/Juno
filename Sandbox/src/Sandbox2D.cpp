@@ -136,13 +136,6 @@ void Sandbox2D::OnUpdate(Juno::Timestep ts)
 			Juno::Renderer2D::DrawQuad({ x - m_MapWidth / 2.0f, m_MapHeight / 2.0f - y, -0.5f }, { 1.0f, 1.0f }, texture);
 		}
 	}
-
-	barPos.x -= 0.5f * ts;
-	barPos.y -= 0.5f * ts;
-
-	//Juno::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, m_TextureStairs);
-	Juno::Renderer2D::DrawQuad(barPos, { 1.0f, 1.0f }, m_TextureBarrel);
-	//Juno::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.0f }, { 1.0f, 2.0f }, m_TextureTree);
 	Juno::Renderer2D::EndScene();
 
 }
