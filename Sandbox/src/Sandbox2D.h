@@ -22,11 +22,7 @@ class Sandbox2D : public Juno::Layer
 		//Temp
 		Juno::Ref<Juno::Texture2D> m_CheckerboardTexture;
 		Juno::Ref<Juno::Texture2D> m_SpriteSheet;
-		Juno::Ref<Juno::SubTexture2D> m_TextureStairs, m_TextureBarrel, m_TextureTree;
 
 		ParticleSystem m_ParticleSystem;
 		ParticleProps m_Particle;
-
-		uint32_t m_MapWidth, m_MapHeight;
-		std::unordered_map<char, Juno::Ref<Juno::SubTexture2D>> s_TextureMap;
 };
