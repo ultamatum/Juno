@@ -153,7 +153,7 @@ project "Sandbox"
 	filter "system:windows"
 		systemversion "latest"
 
-	filter "sytem:linux"
+	filter "system:linux"
 
 		links
 		{

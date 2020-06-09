@@ -14,6 +14,12 @@ void Sandbox2D::OnAttach()
 
 	m_CheckerboardTexture = Juno::Texture2D::Create("assets/textures/Checkerboard.png");
 
+	Juno::FramebufferSpecification fbSpec;
+	fbSpec.Width = 1280;
+	fbSpec.Height = 720;
+	
+	m_Framebuffer = Juno::Framebuffer::Create(fbSpec);
+
 	//Init particle
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
@@ -41,6 +47,7 @@ void Sandbox2D::OnUpdate(Juno::Timestep ts)
 	Juno::Renderer2D::ResetStats();
 	{
 		JUNO_PROFILE_SCOPE("Renderer Prep");
+		m_Framebuffer->Bind();
 		Juno::RenderCommand::SetClearColour({ 0.1f, 0.1f, 0.1f, 1 });
 		Juno::RenderCommand::Clear();
 	}
@@ -54,10 +61,10 @@ void Sandbox2D::OnUpdate(Juno::Timestep ts)
 		Juno::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 		Juno::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		Juno::Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, glm::radians(rotation), { 0.2f, 0.3f, 0.8f, 1.0f });
+		Juno::Renderer2D::DrawRotatedQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, rotation, { 0.2f, 0.3f, 0.8f, 1.0f });
 
 		Juno::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1 }, { 20.0f, 20.0f }, m_CheckerboardTexture, 10.0f);
-		Juno::Renderer2D::DrawRotatedQuad({ -0.5f, -0.5f, 0.0f }, { 1.0f, 1.0f }, glm::radians(rotation), m_CheckerboardTexture, 20.0f);
+		Juno::Renderer2D::DrawRotatedQuad({ -0.5f, -0.5f, 0.0f }, { 1.0f, 1.0f }, rotation, m_CheckerboardTexture, 20.0f);
 
 		for (float y = -5.0f; y < 5.0f; y += 0.5f)
 		{
@@ -69,6 +76,7 @@ void Sandbox2D::OnUpdate(Juno::Timestep ts)
 		}
 
 		Juno::Renderer2D::EndScene();
+		m_Framebuffer->Unbind();
 	}
 
 	if (Juno::Input::IsMouseButtonPressed(JUNO_MOUSE_BUTTON_LEFT))
@@ -86,8 +94,10 @@ void Sandbox2D::OnUpdate(Juno::Timestep ts)
 			m_ParticleSystem.Emit(m_Particle);
 	}
 
+	m_Framebuffer->Bind();
 	m_ParticleSystem.OnUpdate(ts);
 	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
+	m_Framebuffer->Unbind();
 }
 
 void Sandbox2D::OnImGuiRender()
@@ -96,7 +106,7 @@ void Sandbox2D::OnImGuiRender()
 
 	auto stats = Juno::Renderer2D::GetStats();
 
-	static bool dockingEnabled = false;
+	static bool dockingEnabled = true;
 	if (dockingEnabled)
 	{
 		static bool dockspaceOpen = true;
@@ -150,15 +160,14 @@ void Sandbox2D::OnImGuiRender()
 		ImGui::End();
 	}
 
-
 	ImGui::Begin("Settings");
 
 	ImGui::Text("Renderer2D Stats:");
 	ImGui::Text("Draw Calls %d", stats.DrawCalls);
 	ImGui::Text("Quad Count: %d", stats.QuadCount);
 
-	uint32_t textureID = m_CheckerboardTexture->GetRendererID();
-	ImGui::Image((void*)textureID, ImVec2{ 64.0f, 64.0f });
+	uint32_t textureID = m_Framebuffer->GetColourAttachmentRendererID();
+	ImGui::Image((void*)textureID, ImVec2{ 1280.0f, 720.0f });
 
 	ImGui::End();
 }

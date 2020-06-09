@@ -23,6 +23,7 @@
 #include "Juno/Renderer/Buffer.h"
 #include "Juno/Renderer/Shader.h"
 #include "Juno/Renderer/Texture.h"
+#include "Juno/Renderer/Framebuffer.h"
 #include "Juno/Renderer/SubTexture2D.h"
 #include "Juno/Renderer/VertexArray.h"
 
