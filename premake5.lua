@@ -28,7 +28,6 @@ group "Dependencies"
 	include "Juno/vendor/GLFW"
 	include "Juno/vendor/Glad"
 	include "Juno/vendor/imgui"
-
 group ""
 
 project "Juno"
@@ -123,6 +122,67 @@ project "Juno"
 
 project "Sandbox"
 	location "Sandbox"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp",
+	}
+
+	includedirs
+	{
+		"Juno/vendor/spdlog/include",
+		"Juno/src",
+		"Juno/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Juno"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+	filter "system:linux"
+
+		links
+		{
+			"Xrandr",
+			"Xi",
+			"GLEW",
+			"GLU",
+			"GL",
+			"X11",
+			"pthread",
+			"d1"
+		}
+
+	filter "configurations:Debug"
+		defines "JUNO_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "JUNO_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "JUNO_DIST"
+		runtime "Release"
+		optimize "on"
+
+project "Persephone"
+	location "Persephone"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"

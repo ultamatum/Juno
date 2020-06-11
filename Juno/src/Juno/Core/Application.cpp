@@ -13,7 +13,7 @@ namespace Juno
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		JUNO_PROFILE_FUNCTION();
 
@@ -22,7 +22,7 @@ namespace Juno
 		s_Instance = this;
 
 		//Creates the window object
-		m_Window = Window::Create();
+		m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		Renderer::Init();

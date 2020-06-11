@@ -21,8 +21,6 @@ class Sandbox2D : public Juno::Layer
 
 		//Temp
 		Juno::Ref<Juno::Texture2D> m_CheckerboardTexture;
-		Juno::Ref<Juno::Texture2D> m_SpriteSheet;
-		Juno::Ref<Juno::Framebuffer> m_Framebuffer;
 
 		ParticleSystem m_ParticleSystem;
 		ParticleProps m_Particle;
