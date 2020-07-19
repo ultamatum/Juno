@@ -7,7 +7,7 @@
 namespace Juno
 {
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
-		:m_AspectRatio(aspectRatio), m_Bounds({-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel}), m_Camera(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top), m_Rotation(rotation)
+		:m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)
 	{
 
 	}
@@ -67,11 +67,16 @@ namespace Juno
 		dispatcher.Dispatch<WindowResizeEvent>(JUNO_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 	}
 
+	void OrthographicCameraController::OnResize(float width, float height)
+	{
+		m_AspectRatio = width / height;
+
+		CalculateView();
+	}
+
 	void OrthographicCameraController::CalculateView()
 	{
-		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
-
-		m_Camera.SetProjection(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top);
+		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 	}
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
@@ -91,9 +96,7 @@ namespace Juno
 	{
 		JUNO_PROFILE_FUNCTION();
 
-		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-
-		CalculateView();
+		OnResize((float)e.GetWidth(), (float)e.GetHeight());
 
 		return false;
 	}
