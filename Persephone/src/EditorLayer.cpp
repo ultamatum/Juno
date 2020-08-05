@@ -7,7 +7,7 @@
 namespace Juno::Persephone
 {
 	EditorLayer::EditorLayer()
-		:Layer("Persephone"), m_CameraController(1280.0f / 720.0f)
+		: Layer("Persephone"), m_CameraController(1280.0f / 720.0f)
 	{
 	}
 
@@ -32,6 +32,15 @@ namespace Juno::Persephone
 	void EditorLayer::OnUpdate(Timestep ts)
 	{
 		JUNO_PROFILE_FUNCTION();
+
+		//Resize
+		if (Juno::FramebufferSpecification spec = m_Framebuffer->GetSpecification();
+			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f &&						//zero sized FB is invalid
+			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
+		{
+			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+		}
 
 		// Update
 		if(m_ViewportFocused)
@@ -152,13 +161,7 @@ namespace Juno::Persephone
 
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 
-		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize))
-		{
-			m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
-			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
-
-			m_CameraController.OnResize(viewportPanelSize.x, viewportPanelSize.y);
-		}
+		m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 
 		uint32_t textureID = m_Framebuffer->GetColourAttachmentRendererID();
 		ImGui::Image((void*)textureID, ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2(0, 1), ImVec2(1, 0));
