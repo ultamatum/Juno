@@ -5,6 +5,8 @@
 
 namespace Juno
 {
+	static const uint32_t s_MaxFramebufferSize = 16384;
+
 	OpenGLFrameBuffer::OpenGLFrameBuffer(const FramebufferSpecification& spec)
 		:m_Specification(spec)
 	{
@@ -61,6 +63,12 @@ namespace Juno
 
 	void OpenGLFrameBuffer::Resize(uint32_t width, uint32_t height)
 	{
+		if (width == 0 || height == 0 || width > s_MaxFramebufferSize || height > s_MaxFramebufferSize)
+		{
+			JUNO_CORE_WARN("Attempted to resize framebuffer to {0}, {1}", width, height);
+			return;
+		}
+
 		m_Specification.Width = width;
 		m_Specification.Height = height;
 
