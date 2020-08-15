@@ -23,6 +23,7 @@ IncludeDir["Glad"] = "Juno/vendor/Glad/include"
 IncludeDir["ImGui"] = "Juno/vendor/imgui"
 IncludeDir["glm"] = "Juno/vendor/glm"
 IncludeDir["stb_image"] = "Juno/vendor/stb_image"
+IncludeDir["entt"] = "Juno/vendor/EnTT/include"
 
 group "Dependencies"
 	include "Juno/vendor/GLFW"
@@ -66,7 +67,8 @@ project "Juno"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -141,7 +143,8 @@ project "Sandbox"
 		"Juno/vendor/spdlog/include",
 		"Juno/src",
 		"Juno/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -202,7 +205,8 @@ project "Persephone"
 		"Juno/vendor/spdlog/include",
 		"Juno/src",
 		"Juno/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
