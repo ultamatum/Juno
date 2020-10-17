@@ -71,7 +71,7 @@ void Sandbox2D::OnUpdate(Juno::Timestep ts)
 		Juno::Renderer2D::EndScene();
 	}
 
-	if (Juno::Input::IsMouseButtonPressed(JUNO_MOUSE_BUTTON_LEFT))
+	/*if (Juno::Input::IsMouseButtonPressed(JUNO_MOUSE_BUTTON_LEFT))
 	{
 		auto [x, y] = Juno::Input::GetMousePosition();
 		auto width = Juno::Application::Get().GetWindow().GetWidth();
@@ -87,7 +87,7 @@ void Sandbox2D::OnUpdate(Juno::Timestep ts)
 	}
 
 	m_ParticleSystem.OnUpdate(ts);
-	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
+	m_ParticleSystem.OnRender(m_CameraController.GetCamera());*/
 }
 
 void Sandbox2D::OnImGuiRender()

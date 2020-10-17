@@ -15,6 +15,9 @@
 
 #include "Juno/ImGui/ImGuiLayer.h"
 
+#include "Juno/Scene/Scene.h"
+#include "Juno/Scene/Components.h"
+
 // --------- Renderer ---------
 #include "Juno/Renderer/Renderer.h"
 #include "Juno/Renderer/Renderer2D.h"

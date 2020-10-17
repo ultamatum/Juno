@@ -92,21 +92,6 @@ project "Juno"
 			"opengl32.lib"
 		}
 
-	filter "system:linux"
-		pic "on"
-
-		links
-		{
-			"Xrandr",
-			"Xi",
-			"GLEW",
-			"GLU",
-			"GL",
-			"X11",
-			"pthread",
-			"d1"
-		}
-
 	filter "configurations:Debug"
 		defines "JUNO_DEBUG"
 		runtime "Debug"
@@ -154,21 +139,7 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
-
-	filter "system:linux"
-
-		links
-		{
-			"Xrandr",
-			"Xi",
-			"GLEW",
-			"GLU",
-			"GL",
-			"X11",
-			"pthread",
-			"d1"
-		}
-
+		
 	filter "configurations:Debug"
 		defines "JUNO_DEBUG"
 		runtime "Debug"
@@ -216,20 +187,6 @@ project "Persephone"
 
 	filter "system:windows"
 		systemversion "latest"
-
-	filter "system:linux"
-
-		links
-		{
-			"Xrandr",
-			"Xi",
-			"GLEW",
-			"GLU",
-			"GL",
-			"X11",
-			"pthread",
-			"d1"
-		}
 
 	filter "configurations:Debug"
 		defines "JUNO_DEBUG"

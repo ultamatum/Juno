@@ -2,7 +2,7 @@
 
 #include "Juno.h"
 
-namespace Juno::Persephone
+namespace Juno
 {
 	class EditorLayer : public Layer
 	{
@@ -22,6 +22,9 @@ namespace Juno::Persephone
 			//Temp
 			Ref<Texture2D> m_CheckerboardTexture;
 			Ref<Framebuffer> m_Framebuffer;
+
+			Ref<Scene> m_ActiveScene;
+			entt::entity m_SquareEntity;
 
 			bool m_ViewportFocused = false;
 			bool m_ViewportHovered = false;

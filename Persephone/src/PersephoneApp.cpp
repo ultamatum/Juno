@@ -5,16 +5,16 @@
 
 namespace Juno
 {
-	class PersephoneApp : public Application
+	class Persephone : public Application
 	{
 		public:
-			PersephoneApp()
-				: Application("Juno Editor")
+			Persephone()
+				: Application("Persephone")
 			{
-				PushLayer(new Persephone::EditorLayer());
+				PushLayer(new EditorLayer());
 			}
 
-			~PersephoneApp()
+			~Persephone()
 			{
 
 			}
@@ -22,6 +22,6 @@ namespace Juno
 
 	Application* CreateApplication()
 	{
-		return new PersephoneApp();
+		return new Persephone();
 	}
 }
