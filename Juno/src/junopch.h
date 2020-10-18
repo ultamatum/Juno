@@ -4,6 +4,15 @@
 
 #pragma once
 
+#include "Juno/Core/PlatformDetection.h"
+
+#ifdef JUNO_PLATFORM_WINDOWS
+	#ifndef NOMINMAX
+		#define NOMINMAX
+	#endif
+#endif
+
+
 #include <iostream>
 #include <memory>
 #include <utility>
