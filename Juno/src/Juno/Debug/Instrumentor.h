@@ -27,16 +27,10 @@ namespace Juno
 
 	class Instrumentor
 	{
-		private:
-			std::mutex m_Mutex;
-			InstrumentationSession* m_CurrentSession;
-			std::ofstream m_OutputStream;
-
 		public:
-			Instrumentor()
-				: m_CurrentSession(nullptr)
-			{}
-
+			Instrumentor(const Instrumentor&) = delete;
+			Instrumentor(Instrumentor&&) = delete;
+			
 			void BeginSession(const std::string& name, const std::string& filepath = "results.json")
 			{
 				std::lock_guard lock(m_Mutex);
@@ -107,6 +101,16 @@ namespace Juno
 			}
 
 		private:
+			Instrumentor()
+				: m_CurrentSession(nullptr)
+			{
+			}
+
+			~Instrumentor()
+			{
+				EndSession();
+			}
+
 			void WriteHeader()
 			{
 				m_OutputStream << "{\"otherData\": {},\"traceEvents\":[{}";
@@ -131,6 +135,11 @@ namespace Juno
 					m_CurrentSession = nullptr;
 				}
 			}
+
+		private:
+			std::mutex m_Mutex;
+			InstrumentationSession* m_CurrentSession;
+			std::ofstream m_OutputStream;
 	};
 
 	class InstrumentationTimer
@@ -220,8 +229,10 @@ namespace Juno
 
 	#define JUNO_PROFILE_BEGIN_SESSION(name, filepath) ::Juno::Instrumentor::Get().BeginSession(name, filepath)
 	#define JUNO_PROFILE_END_SESSION() ::Juno::Instrumentor::Get().EndSession()
-	#define JUNO_PROFILE_SCOPE(name) constexpr auto fixedName = ::Juno::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
-																	::Juno::InstrumentationTimer timer##__LINE__(fixedName.Data)
+	#define JUNO_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Juno::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+																					::Juno::InstrumentationTimer timer##line(fixedName##line.Data)
+	#define JUNO_PROFILE_SCOPE_LINE(name, line) JUNO_PROFILE_SCOPE_LINE2(name, line)
+	#define JUNO_PROFILE_SCOPE(name) JUNO_PROFILE_SCOPE_LINE(name, __LINE__)
 	#define JUNO_PROFILE_FUNCTION()  JUNO_PROFILE_SCOPE(JUNO_FUNC_SIG)
 #else
 	#define JUNO_PROFILE_BEGIN_SESSION(name, filepath)
