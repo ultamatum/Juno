@@ -25,9 +25,10 @@ namespace Juno
 
 		m_ActiveScene = CreateRef<Scene>();
 
-		auto square = m_ActiveScene->CreateEntity();
-		m_ActiveScene->Reg().emplace<TransformComponent>(square);
-		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+		//Entity
+		auto square = m_ActiveScene->CreateEntity("Square ");
+
+		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 
 		m_SquareEntity = square;
 	}
@@ -135,8 +136,16 @@ namespace Juno
 		ImGui::Text("Draw Calls %d", stats.DrawCalls);
 		ImGui::Text("Quad Count: %d", stats.QuadCount);
 
-		auto& squareColour = m_ActiveScene->Reg().get<SpriteRendererComponent>(m_SquareEntity).Colour;
-		ImGui::ColorEdit4("Square Colour", glm::value_ptr(squareColour));
+		if (m_SquareEntity)
+		{
+			ImGui::Separator();
+			auto& tag = m_SquareEntity.GetComponent<TagComponent>().Tag;
+			ImGui::Text("%s", tag.c_str());
+
+			auto& squareColour = m_SquareEntity.GetComponent<SpriteRendererComponent>().Colour;
+			ImGui::ColorEdit4("Square Colour", glm::value_ptr(squareColour));
+			ImGui::Separator();
+		}
 
 		ImGui::End();
 
