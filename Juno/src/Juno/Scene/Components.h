@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "SceneCamera.h"
+
 namespace Juno
 {
 	struct TagComponent
@@ -38,6 +40,16 @@ namespace Juno
 			: Colour(colour)
 		{
 		}
+	};
+
+	struct CameraComponent
+	{
+		SceneCamera Camera;
+		bool Primary = true;
+		bool FixedAspectRatio = false;
+
+		CameraComponent() = default;
+		CameraComponent(const CameraComponent&) = default;
 	};
 
 }

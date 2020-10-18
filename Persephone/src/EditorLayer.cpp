@@ -26,11 +26,18 @@ namespace Juno
 		m_ActiveScene = CreateRef<Scene>();
 
 		//Entity
-		auto square = m_ActiveScene->CreateEntity("Square ");
+		auto square = m_ActiveScene->CreateEntity("Square");
 
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 
 		m_SquareEntity = square;
+
+		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
+		auto& test = m_CameraEntity.AddComponent<CameraComponent>();
+		
+		m_SecondCamera = m_ActiveScene->CreateEntity("Clip-Space Camera");
+		auto& cc = m_SecondCamera.AddComponent<CameraComponent>();
+		cc.Primary = false;
 	}
 
 	void EditorLayer::OnDetach()
@@ -44,12 +51,14 @@ namespace Juno
 		JUNO_PROFILE_FUNCTION();
 
 		//Resize
-		if (Juno::FramebufferSpecification spec = m_Framebuffer->GetSpecification();
+		if (FramebufferSpecification spec = m_Framebuffer->GetSpecification();
 			m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f &&						//zero sized FB is invalid
 			(spec.Width != m_ViewportSize.x || spec.Height != m_ViewportSize.y))
 		{
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
 		// Update
@@ -62,12 +71,12 @@ namespace Juno
 		RenderCommand::SetClearColour({ 0.1f, 0.1f, 0.1f, 1 });
 		RenderCommand::Clear();
 
-		Renderer2D::BeginScene(m_CameraController.GetCamera());
+		//Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 		//Update Scene
 		m_ActiveScene->OnUpdate(ts);
 
-		Renderer2D::EndScene();
+		//Renderer2D::EndScene();
 		m_Framebuffer->Unbind();
 	}
 
@@ -145,6 +154,21 @@ namespace Juno
 			auto& squareColour = m_SquareEntity.GetComponent<SpriteRendererComponent>().Colour;
 			ImGui::ColorEdit4("Square Colour", glm::value_ptr(squareColour));
 			ImGui::Separator();
+		}
+
+		ImGui::DragFloat3("Camera Transform", glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
+
+		if (ImGui::Checkbox("Camera A", &m_PrimaryCamera))
+		{
+			m_CameraEntity.GetComponent<CameraComponent>().Primary = m_PrimaryCamera;
+			m_SecondCamera.GetComponent<CameraComponent>().Primary = !m_PrimaryCamera;
+		}
+
+		{
+			auto& camera = m_SecondCamera.GetComponent<CameraComponent>().Camera;
+			float orthoSize = camera.GetOrthographicSize();
+			if (ImGui::DragFloat("Second Camera Ortho Size", &orthoSize))
+				camera.SetOrthographicSize(orthoSize);
 		}
 
 		ImGui::End();
