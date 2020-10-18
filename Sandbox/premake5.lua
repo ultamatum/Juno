@@ -13,6 +13,11 @@ project "Sandbox"
 		"src/**.cpp",
 	}
 
+	defines
+	{
+		"_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING"
+	}
+
 	includedirs
 	{
 		"%{wks.location}/Juno/vendor/spdlog/include",

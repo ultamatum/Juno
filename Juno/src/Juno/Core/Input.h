@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Juno/Core/Core.h"
+#include <glm/glm.hpp>
 #include "Juno/Core/KeyCodes.h"
 #include "Juno/Core/MouseCodes.h"
 
@@ -12,7 +12,7 @@ namespace Juno
 			static bool IsKeyPressed(KeyCode key);
 
 			static bool IsMouseButtonPressed(MouseCode button);
-			static std::pair<float, float> GetMousePosition();
+			static glm::vec2 GetMousePosition();
 			static float GetMouseX();
 			static float GetMouseY();
 	};
