@@ -1,6 +1,8 @@
 #pragma once
 
-#include "junopch.h"
+#include <functional>
+
+#include "Hazel/Debug/Instrumentor.h"
 #include "Juno/Core/Core.h"
 
 namespace Juno

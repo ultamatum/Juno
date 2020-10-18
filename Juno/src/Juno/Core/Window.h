@@ -1,6 +1,6 @@
 #pragma once
 
-#include "junopch.h"
+#include <sstream>
 
 #include "Juno/Core/Core.h"
 #include "Juno/Events/Event.h"

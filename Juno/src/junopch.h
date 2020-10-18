@@ -17,6 +17,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Juno/Core/Core.h"
 #include "Juno/Core/Log.h"
 
 #include "Juno/Debug/Instrumentor.h"

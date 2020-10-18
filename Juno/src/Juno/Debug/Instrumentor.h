@@ -6,6 +6,10 @@
 #include <iomanip>
 #include <string>
 #include <thread>
+#include <mutex>
+#include <sstream>
+
+#include "Juno/Core/Log.h"
 
 namespace Juno
 {
