@@ -1,8 +1,7 @@
 # Juno
 
 # Setup
-1. Clone Repo
-2. Download premake.exe and save to vendor/bin/premake/
-3. Run GenerateProjects.bat
-4. Open Juno.sln
-5. Profit
+1. Clone Repo (including submodules)
+2. Run /Scripts/GenerateProjects.bat
+3. Open Juno.sln
+4. Enjoy!
