@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Juno.h"
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace Juno
 {
@@ -33,5 +34,8 @@ namespace Juno
 			bool m_ViewportFocused = false;
 			bool m_ViewportHovered = false;
 			glm::vec2 m_ViewportSize = {0.0f, 0.0f};
+
+			//Panels
+			SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }
