@@ -1,5 +1,4 @@
 # Juno
-Juno Engine (Based on Hazel Engine)
 
 # Setup
 1. Clone Repo
