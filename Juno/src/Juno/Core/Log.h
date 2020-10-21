@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "Juno/Core/Core.h"
 
 // This ignores all warnings raised inside External headers
 #pragma warning(push, 0)

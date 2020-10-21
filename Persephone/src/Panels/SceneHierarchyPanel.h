@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Juno/Scene/Scene.h"
-#include "Juno/Core/Log.h"
 #include "Juno/Core/Core.h"
 #include "Juno/Scene/Entity.h"
 

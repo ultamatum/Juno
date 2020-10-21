@@ -1,6 +1,6 @@
 #include "junopch.h"
-#include "Framebuffer.h"
 
+#include "Juno/Renderer/Framebuffer.h"
 #include "Juno/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/OpenGLFramebuffer.h"

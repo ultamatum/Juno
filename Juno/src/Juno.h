@@ -5,6 +5,7 @@
 #include "Juno/Core/Application.h"
 #include "Juno/Core/Layer.h"
 #include "Juno/Core/Log.h"
+#include "Juno/Core/Assert.h"
 
 #include "Juno/Core/Timestep.h"
 

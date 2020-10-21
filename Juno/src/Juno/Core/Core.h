@@ -19,14 +19,8 @@
 	#define JUNO_DEBUGBREAK()
 #endif
 
-//Assertion used primarily for debugging purposes, to be disabled for end client
-#ifdef JUNO_ENABLE_ASSERTS
-	#define JUNO_ASSERT(x, ...) { if(!(x)) { JUNO_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
-	#define JUNO_CORE_ASSERT(x, ...) { if(!(x)) { JUNO_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}}
-#else
-	#define JUNO_ASSERT(x, ...)
-	#define JUNO_CORE_ASSERT(x, ...)
-#endif
+#define JUNO_EXPAND_MACRO(x) x
+#define JUNO_STRINGIFY_MACRO(x) #x
 
 #define BIT(x) (1 << x)
 
@@ -50,3 +44,6 @@ namespace Juno
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 }
+
+#include "Juno/Core/Log.h"
+#include "Juno/Core/Assert.h"
