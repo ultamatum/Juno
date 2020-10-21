@@ -50,7 +50,7 @@ namespace Juno
 			virtual int GetCategoryFlags() const = 0;
 			virtual std::string ToString() const { return GetName(); }
 
-			inline bool IsInCategory(EventCategory category)
+			bool IsInCategory(EventCategory category)
 			{
 				return GetCategoryFlags() & category;
 			}
@@ -73,7 +73,7 @@ namespace Juno
 			{
 				if (m_Event.GetEventType() == T::GetStaticType())
 				{
-					m_Event.Handled = func(static_cast<T&>(m_Event));
+					m_Event.Handled |= func(static_cast<T&>(m_Event));
 					return true;
 				}
 				return false;
