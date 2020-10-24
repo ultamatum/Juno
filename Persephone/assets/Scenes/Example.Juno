@@ -1,0 +1,65 @@
+Scene: Unnamed Scene
+Entities:
+  - EntityID: 12335254987
+    TagComponent:
+      Tag: Blue Square
+    TransformComponent:
+      Translation: [-1, 1, 1]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Colour: [0.0461464338, 0.0461650118, 0.911392391, 1]
+  - EntityID: 12335254987
+    TagComponent:
+      Tag: Green Square
+    TransformComponent:
+      Translation: [0, 1, 1]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Colour: [0, 1, 0, 1]
+  - EntityID: 12335254987
+    TagComponent:
+      Tag: Red Square
+    TransformComponent:
+      Translation: [1, 1, 1]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Colour: [1, 0, 0, 1]
+  - EntityID: 12335254987
+    TagComponent:
+      Tag: Camera 1
+    TransformComponent:
+      Translation: [0, 1, 1]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 1
+        PerspectiveFOV: 0.785398185
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: true
+      FixedAspectRatio: false
+  - EntityID: 12335254987
+    TagComponent:
+      Tag: Camera 2
+    TransformComponent:
+      Translation: [1, 1, 1]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 1
+        PerspectiveFOV: 0.785398185
+        PerspectiveNear: 0.00999999978
+        PerspectiveFar: 1000
+        OrthographicSize: 10
+        OrthographicNear: -1
+        OrthographicFar: 1
+      Primary: false
+      FixedAspectRatio: false
