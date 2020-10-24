@@ -21,3 +21,4 @@
 [submodule "Juno/vendor/yaml-cpp"]
 	path = Juno/vendor/yaml-cpp
 	url = ../../ultamatum/yaml-cpp
+	ignore = dirty
