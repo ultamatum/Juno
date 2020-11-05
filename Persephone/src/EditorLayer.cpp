@@ -31,21 +31,6 @@ namespace Juno
 		m_ActiveScene = CreateRef<Scene>();
 
 		#if 0
-		//Entity
-		auto square = m_ActiveScene->CreateEntity("Green Square");
-		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
-		m_SquareEntity = square;
-
-		auto square2 = m_ActiveScene->CreateEntity("Red Square");
-		square2.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-
-		m_CameraEntity = m_ActiveScene->CreateEntity("Camera 1");
-		auto& test = m_CameraEntity.AddComponent<CameraComponent>();
-		
-		m_SecondCamera = m_ActiveScene->CreateEntity("Camera 2");
-		auto& cc = m_SecondCamera.AddComponent<CameraComponent>();
-		cc.Primary = false;
-
 		class CameraController : public ScriptableEntity
 		{
 		public:

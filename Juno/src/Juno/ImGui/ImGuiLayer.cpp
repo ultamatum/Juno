@@ -132,11 +132,11 @@ namespace Juno
 		colours[ImGuiCol_FrameBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
 
 		// Tabs
-		colours[ImGuiCol_Tab] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
-		colours[ImGuiCol_TabHovered] = ImVec4{ 0.38f, 0.3805f, 0.381f, 1.0f };
-		colours[ImGuiCol_TabActive] = ImVec4{ 0.28f, 0.2805f, 0.281f, 1.0f };
-		colours[ImGuiCol_TabUnfocused] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
-		colours[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.2f, 0.205f, 0.21f, 1.0f };
+		colours[ImGuiCol_Tab] = ImVec4{ 0.55f, 0.1505f, 0.151f, 1.0f };
+		colours[ImGuiCol_TabHovered] = ImVec4{ 0.58f, 0.3805f, 0.381f, 1.0f };
+		colours[ImGuiCol_TabActive] = ImVec4{ 0.48f, 0.0805f, 0.081f, 1.0f };
+		colours[ImGuiCol_TabUnfocused] = ImVec4{ 0.55f, 0.1505f, 0.151f, 1.0f };
+		colours[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.5f, 0.205f, 0.21f, 1.0f };
 
 		colours[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
 		colours[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
