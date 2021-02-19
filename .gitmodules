@@ -22,3 +22,6 @@
 	path = Juno/vendor/yaml-cpp
 	url = ../../ultamatum/yaml-cpp
 	ignore = dirty
+[submodule "Juno/vendor/ImGuizmo"]
+	path = Juno/vendor/ImGuizmo
+	url = https://github.com/ultamatum/ImGuizmo
