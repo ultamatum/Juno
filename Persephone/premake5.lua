@@ -24,7 +24,8 @@ project "Persephone"
 		"%{wks.location}/Juno/src",
 		"%{wks.location}/Juno/vendor",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.ImGuizmo}"
 	}
 
 	links
