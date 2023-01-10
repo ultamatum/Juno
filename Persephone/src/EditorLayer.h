@@ -3,6 +3,8 @@
 #include "Juno.h"
 #include "Panels/SceneHierarchyPanel.h"
 
+#include "Juno/Renderer/EditorCamera.h"
+
 namespace Juno
 {
 	class EditorLayer : public Layer
@@ -36,6 +38,8 @@ namespace Juno
 			Entity m_SecondCamera;
 			
 			bool m_PrimaryCamera = true;
+
+			EditorCamera m_EditorCamera;
 
 			bool m_ViewportFocused = false;
 			bool m_ViewportHovered = false;
