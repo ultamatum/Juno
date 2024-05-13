@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Juno/Renderer/FrameBuffer.h"
+#include "Juno/Renderer/Framebuffer.h"
 
 namespace Juno
 {

@@ -1,12 +1,15 @@
 #pragma once
 
-#ifdef JUNO_PLATFORM_WINDOWS || JUNO_PLATFORM_LINUX
-
 extern Juno::Application* Juno::CreateApplication();
 
 int main(int argc, char** argv)
 {
 	Juno::Log::Init();						//Initialize logging library
+
+	#ifdef JUNO_PLATFORM_LINUX
+		JUNO_CORE_WARN("Linux is not fully supported yet");
+		JUNO_CORE_WARN("Juno for Linux currently uses Juno::WindowsInput");
+	#endif 
 
 	JUNO_PROFILE_BEGIN_SESSION("Startup", "JunoProfile-Startup.json");
 	auto app = Juno::CreateApplication();
@@ -21,4 +24,3 @@ int main(int argc, char** argv)
 	JUNO_PROFILE_END_SESSION();
 }
 
-#endif

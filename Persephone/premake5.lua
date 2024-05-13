@@ -2,7 +2,7 @@ project "Persephone"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -11,11 +11,6 @@ project "Persephone"
 	{
 		"src/**.h",
 		"src/**.cpp",
-	}
-
-	defines
-	{
-		"_SILENCE_CXX17_RESULT_OF_DEPRECATION_WARNING"
 	}
 
 	includedirs
@@ -35,6 +30,27 @@ project "Persephone"
 
 	filter "system:windows"
 		systemversion "latest"
+		
+	filter "system:linux"
+		links
+		{
+			"GLFW",
+			"Glad",
+			"ImGui",
+			"Xrandr",
+			"Xi",
+			"GLU",
+			"GL",
+			"X11",
+			"dl",
+			"pthread",
+			"yaml-cpp",
+		}
+
+		defines
+		{
+			"JUNO_PLATFORM_LINUX"
+		}
 
 	filter "configurations:Debug"
 		defines "JUNO_DEBUG"

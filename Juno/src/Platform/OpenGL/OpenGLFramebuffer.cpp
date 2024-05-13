@@ -1,6 +1,6 @@
 #include "junopch.h"
 
-#include "Platform/OpenGL/OpenGLFrameBuffer.h"
+#include "Platform/OpenGL/OpenGLFramebuffer.h"
 
 #include <glad/glad.h>
 

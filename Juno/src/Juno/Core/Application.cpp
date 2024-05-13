@@ -116,6 +116,23 @@ namespace Juno
 		}
 	}
 
+	std::string Application::CorrectFilePath(const std::string& path)
+	{
+		#if defined(JUNO_DEBUG) || defined(JUNO_RELEASE)
+			if (std::filesystem::exists(path))
+				return path;
+
+			auto check_path = std::filesystem::path(".") / m_BaseDirectory / path;
+			if (std::filesystem::exists(check_path))
+				return check_path.string();
+
+			check_path = std::filesystem::path("../../..") / m_BaseDirectory / path;	//Decend to project directory from executable's directory
+			if (std::filesystem::exists(check_path))
+				return check_path.string();
+		#endif
+		return path;
+	}
+
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;

@@ -38,6 +38,7 @@ namespace Juno
 			ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
 
 			inline static Application& Get() { return *s_Instance; }
+			std::string CorrectFilePath(const std::string& path);
 
 		private:
 			void Run();
@@ -53,6 +54,7 @@ namespace Juno
 
 		private:
 			static Application* s_Instance;
+			std::string m_BaseDirectory;
 			friend int ::main(int argc, char** argv);
 	};
 

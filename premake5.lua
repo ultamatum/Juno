@@ -2,7 +2,7 @@ include "./vendor/premake/premake_customization/solution_items.lua"
 
 workspace "Juno"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Persephone"
 
 	configurations
 	{

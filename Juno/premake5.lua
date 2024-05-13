@@ -2,7 +2,7 @@ project "Juno"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
@@ -48,8 +48,7 @@ project "Juno"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"yaml-cpp",
-        "opengl32.lib"
+		"yaml-cpp"
 	}
 
 	filter "files:vendor/ImGuizmo/**.cpp"
@@ -58,9 +57,25 @@ project "Juno"
 	filter "system:windows"
 		systemversion "latest"
 
+		removefiles { "**/Linux/**" }
+
+		links 
+		{
+        	"opengl32.lib"
+		}
+
 		defines
 		{
 		}
+
+	filter "system:linux"
+		removefiles { "src/Platform/Windows/WindowsPlatformUtils.cpp" }
+
+		defines
+		{
+			"JUNO_PLATFORM_LINUX",
+		}
+
 
 	filter "configurations:Debug"
 		defines "JUNO_DEBUG"

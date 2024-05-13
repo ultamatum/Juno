@@ -3,6 +3,7 @@
 
 #include "Juno/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
+#include "Juno/Core/Application.h"
 
 namespace Juno
 {
@@ -23,7 +24,7 @@ namespace Juno
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:		JUNO_CORE_ASSERT(false, "RendererAPI::NONE is currently not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL:		return CreateRef<OpenGLTexture2D>(path);
+			case RendererAPI::API::OpenGL:		return CreateRef<OpenGLTexture2D>(Application::Get().CorrectFilePath(path));
 		}
 
 		JUNO_CORE_ASSERT(false, "Unknown RendererAPI!");
